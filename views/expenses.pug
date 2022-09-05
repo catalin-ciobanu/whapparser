@@ -1,0 +1,64 @@
+extends layout
+
+block content
+  h1= title
+
+   a(href='dashboard')
+    p Dashboard
+
+   hr 
+   form(action='/expenses/listByMonth', method='POST')
+    p
+      | month: 
+      input(type='text', name='month', value='')
+      | year: 
+      input(type='text', name='year', value='')
+    input(type='submit', value='Filter By Month')
+
+    hr
+   form(action='/expenses/listByYear', method='POST')
+    p
+      | year: 
+      input(type='text', name='year', value='')
+    input(type='submit', value='Filter By Year')
+
+    hr
+  form(action="/expenses/load_file" method="POST" enctype="multipart/form-data")
+    input(type="file" id="myfile" name="filename")
+    input(type="submit")
+  
+    hr
+  form(action="/expenses/sumByCategoryByMonth" method="POST" enctype="multipart/form-data")
+    p
+      | category: 
+      input(type='text', name='category', value='')
+      | month: 
+      input(type='text', name='month', value='')
+      | year: 
+      input(type='text', name='year', value='')
+    input(type='submit', value='Get Sum for Category')
+
+    hr
+  form(action="/expenses/deleteAll" method="GET")
+    input(type="submit" name="clearAll" value="Clear All")
+
+  table(style='width:100%', border='1')
+    th Description  
+    th Sum
+    th Date 
+    th Category  
+    th Bucket
+    th Name
+    th ID
+    each expense in expense_list
+      tr 
+        td #{expense.description} 
+        td #{expense.sum}  
+        td #{expense.expense_date} 
+        td #{expense.type} 
+        td #{expense.bucket}
+        td #{expense.name}
+        td #{expense._id}
+
+    else
+      p There are no expenses.
