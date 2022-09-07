@@ -3,10 +3,15 @@ const conn = require("../services/db");
 
 const importFromFile = function (csvData, cb) {
     var expensesList = processor.processFileContent(csvData);
+    var newestMonth, newestYear;
     for (var i in expensesList) {
         saveExpense(expensesList[i]);
+        if (i == expensesList.length - 1) {
+            newestMonth = expensesList[i].expense_date.getMonth() + 1;;
+            newestYear = expensesList[i].expense_date.getFullYear();
+        }
     }
-    cb();
+    cb(null, newestMonth, newestYear);
 };
 
 const getAllExpenses = function (cb) {
@@ -18,18 +23,16 @@ const getAllExpenses = function (cb) {
 };
 
 const getExpensesByMonth = function (month, year, cb) {
+    month = month ? month : new Date().getMonth() + 1;
+    year = year ? year : new Date().getFullYear();
+    var first_day = new Date(year, month - 1, '1');
     var last_day = new Date(year, month, 0);
-    var first_day = new Date(year, month - 1, '1')
     console.log("first day: " + first_day + "last day: " + last_day);
-    return Expense.find({
-        "expense_date":
-        {
-            $gte: first_day,
-            $lte: last_day
+    conn.query("SELECT * FROM expenses WHERE (expense_date BETWEEN ? AND ?)", [first_day, last_day],
+        function (err, rows) {
+            cb(err, rows);
         }
-    })
-        .sort({ expense_date: 1 })
-        .exec(cb);
+    );
 };
 
 const getExpensesByYear = function (year, cb) {
@@ -222,10 +225,10 @@ const deleteAllExpenses = function (cb) {
     conn.query("TRUNCATE expenses", [],
         function (err, rows) {
             if (err) {
-                console.log(err.message);
+                // console.log(err.message);
                 cb(err);
             } else {
-                console.log(rows);
+                //console.log(rows);
                 cb();
             }
         });
@@ -246,10 +249,8 @@ const saveExpense = function (expense, cb) {
         [expense.description, expense.name, expense.type, expense.bucket, expense.sum, expense.expense_date],
         function (err, rows) {
             if (err) {
-                console.log(err.message);
                 if (cb) { cb(err) };
             } else {
-                console.log(rows);
                 if (cb) { cb(err) };
             }
         });

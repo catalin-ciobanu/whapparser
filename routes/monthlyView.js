@@ -7,7 +7,7 @@ var monthly_view_controller = require('../controllers/monthlyViewController');
 /// monthly view ROUTES ///
 
 // GET list all expenses in this/last month
-router.get('/monthly', monthly_view_controller.expenses_list_by_month);
+router.get('/', monthly_view_controller.expenses_list_by_month);
 
 // POST list of expenses from a given month
 router.post('/monthly/:id',monthly_view_controller.expenses_list_by_month);

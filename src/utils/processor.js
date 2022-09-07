@@ -3,8 +3,11 @@
 const Maps = require('../const/maps');
 
 var cleanDate = function (date) {
-    if (date)
-        return date.replace('[', '').replace(',', '');
+    if (date) {
+        let dateString = date.replace('[', '').replace(',', '');
+        let dateArray = dateString.split(".");
+        return { day: dateArray[0], month: (dateArray[1]-1), year: dateArray[2] };
+    }
 }
 
 var cleanName = function (name) {
@@ -33,7 +36,11 @@ var processFileContent = function (input) {
                     continue;
             }
             var myarray = text.split(/(.*,)(\s)(.*:)(\s)(\S*)(.*)/gm);
-            currentLine.expense_date = cleanDate(myarray[1]);
+            if (myarray.length < 6) {
+                return result;
+            }
+            var incomingDate = cleanDate(myarray[1]);
+            currentLine.expense_date = new Date(incomingDate.year, incomingDate.month, incomingDate.day);
             currentLine.name = cleanName(myarray[3]);
             currentLine.sum = myarray[5];
             currentLine.description = myarray[6];

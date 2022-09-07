@@ -7,7 +7,7 @@ var expense_controller = require('../controllers/expenseController');
 /// expense ROUTES ///
 
 // GET list all expenses
-router.get('/', expense_controller.expenses_list);
+router.get('/allExpenses', expense_controller.expenses_list);
 
 //POST list of expenses from a given month
 router.post('/listByMonth',expense_controller.expenses_list_by_month);

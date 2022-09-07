@@ -14,7 +14,7 @@ const eatingOut_words = ["cwrtofisserie", "mcdonald", "covrigi", "branzoice", "s
     "restaurant", "fenis", "krud", "mec", "mcdonalds", "mc", "trumpets",
     "eatingout", "petru", "simigerie", "nico", "pranz", "glovo", "cafea",
     "legend", "foodcourt", "court"];
-const electricitate_words = ["eon", "curent"];
+const electricitate_words = ["eon", "curent", "electricitate"];
 const gaz_words = ["gaz"];
 const digi_words = ["digi"];
 const gunoi_words = ["gunoi"];
