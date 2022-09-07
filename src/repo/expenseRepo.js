@@ -1,32 +1,20 @@
-const Expense = require('../../models/expense');
 const processor = require('../utils/processor');
+const conn = require("../services/db");
 
 const importFromFile = function (csvData, cb) {
     var expensesList = processor.processFileContent(csvData);
     for (var i in expensesList) {
-        var expense = expensesList[i];
-        var expensedetail = {}
-        var category_bucket = processor.get_Category_Bucket(expense.Details);
-        expensedetail.description = expense.Details
-        expensedetail.type = category_bucket.category;
-        expensedetail.bucket = category_bucket.bucket;
-        expensedetail.expense_date = expense.Date;
-        expensedetail.sum = expense.Sum;
-        expensedetail.name = expense.Name;
-
-        var expenseNew = new Expense(expensedetail);
-
-        expenseNew.save(function (err) {
-            if (err) {
-                return
-            }
-        });
+        saveExpense(expensesList[i]);
     }
     cb();
 };
 
 const getAllExpenses = function (cb) {
-    return Expense.find({}, 'description type bucket expense_date sum name _id').sort({ expense_date: 1 }).exec(cb);
+    conn.query("SELECT * FROM expenses", [],
+        function (err, rows) {
+            cb(err, rows);
+        }
+    );
 };
 
 const getExpensesByMonth = function (month, year, cb) {
@@ -231,14 +219,62 @@ const getTotalSumMonth = function (month, year) {
 };
 
 const deleteAllExpenses = function (cb) {
-    Expense.deleteMany({}).exec(cb);
+    conn.query("TRUNCATE expenses", [],
+        function (err, rows) {
+            if (err) {
+                console.log(err.message);
+                cb(err);
+            } else {
+                console.log(rows);
+                cb();
+            }
+        });
 };
 
 const deleteExpenseById = function (id) {
-
+    const result = conn.query("DELETE FROM expenses WHERE id = ?", [id]);
+    let message = 'Error in deleting expense';
+    if (result.affectedRows) {
+        message = 'Expense deleted successfully';
+    }
+    return { message };
 };
 
+const saveExpense = function (expense, cb) {
+    conn.query(
+        "INSERT INTO expenses (description, name, type, bucket, sum, expense_date) VALUES(?,?,?,?,?,?)",
+        [expense.description, expense.name, expense.type, expense.bucket, expense.sum, expense.expense_date],
+        function (err, rows) {
+            if (err) {
+                console.log(err.message);
+                if (cb) { cb(err) };
+            } else {
+                console.log(rows);
+                if (cb) { cb(err) };
+            }
+        });
+}
+
+const updateExpense = function (id, expense, cb) {
+    conn.query("UPDATE expenses SET description = ?, name = ?, type = ?, bucket = ?, sum = ?, expense_date = ? WHERE id = ?",
+        [expense.description, expense.name, expense.type, expense.bucket, expense.sum, expense.expense_date, id],
+        function (err, rows) {
+            if (err) {
+                console.log(err.message);
+                cb(err);
+            } else {
+                console.log(rows);
+                cb();
+            }
+        });
+}
+
+
+
 module.exports = {
+    deleteExpenseById: deleteExpenseById,
+    createExpense: saveExpense,
+    updateExpense: updateExpense,
     sumAggregate: sumAggregate,
     importFromFile: importFromFile,
     getSumByCategoryByMonth: getSumByCategoryByMonth,

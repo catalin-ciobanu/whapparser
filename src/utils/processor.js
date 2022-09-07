@@ -33,11 +33,14 @@ var processFileContent = function (input) {
                     continue;
             }
             var myarray = text.split(/(.*,)(\s)(.*:)(\s)(\S*)(.*)/gm);
-            currentLine.Date = cleanDate(myarray[1]);
-            currentLine.Name = cleanName(myarray[3]);
-            currentLine.Sum = myarray[5];
-            currentLine.Details = myarray[6];
-            if (currentLine.Sum) { result.push(currentLine); }
+            currentLine.expense_date = cleanDate(myarray[1]);
+            currentLine.name = cleanName(myarray[3]);
+            currentLine.sum = myarray[5];
+            currentLine.description = myarray[6];
+            var categ_and_bucket = get_Category_Bucket(myarray[6]);
+            currentLine.bucket = categ_and_bucket.bucket;
+            currentLine.type = categ_and_bucket.category;
+            if (currentLine.sum) { result.push(currentLine); }
         }
         //console.log(result);
     });

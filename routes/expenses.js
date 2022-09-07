@@ -46,4 +46,6 @@ router.get('/dashboard', expense_controller.send_to_dashboard);
 
 router.get('/monthly', expense_controller.send_to_monthly);
 
+router.get('/reports', expense_controller.send_to_reports);
+
 module.exports = router;
