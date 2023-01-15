@@ -10,10 +10,10 @@ var expense_controller = require('../controllers/expenseController');
 router.get('/allExpenses', expense_controller.expenses_list);
 
 //POST list of expenses from a given month
-router.post('/listByMonth',expense_controller.expenses_list_by_month);
+router.post('/listByMonth', expense_controller.expenses_list_by_month);
 
 //POST list of expenses from a given month
-router.post('/listByYear',expense_controller.expenses_list_by_year);
+router.post('/listByYear', expense_controller.expenses_list_by_year);
 
 //POST sum for a category for a month
 router.post('/sumByCategoryByMonth', expense_controller.sum_by_categby_month);

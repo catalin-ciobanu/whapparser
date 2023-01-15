@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', monthlyViewRouter);
+//app.use('/', monthlyViewRouter);
 app.use('/expenses', expensesRouter); // Add catalog routes to middleware chain.
 app.use('/dashboard', dashboardRouter); // Add catalog routes to middleware chain.
 app.use('/reports', reportsRouter); // Add catalog routes to middleware chain.

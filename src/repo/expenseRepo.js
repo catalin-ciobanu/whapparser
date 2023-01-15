@@ -11,6 +11,7 @@ const importFromFile = function (csvData, cb) {
             newestYear = expensesList[i].expense_date.getFullYear();
         }
     }
+    //ma intorc in view-ul lunar cu ultimele cheltuieli logate
     cb(null, newestMonth, newestYear);
 };
 
@@ -23,19 +24,53 @@ const getAllExpenses = function (cb) {
 };
 
 const getExpensesByMonth = function (month, year, cb) {
-    month = month ? month : new Date().getMonth() + 1;
-    year = year ? year : new Date().getFullYear();
-    var first_day = new Date(year, month - 1, '1');
-    var last_day = new Date(year, month, 0);
-    console.log("first day: " + first_day + "last day: " + last_day);
-    conn.query("SELECT * FROM expenses WHERE (expense_date BETWEEN ? AND ?)", [first_day, last_day],
+    if (!month || !year) { //sunt pe cazul in care vin "default", probabil din alt view
+        getExpensesFromNewestMonth(function (err, rows) {
+            month = rows[0].month;
+            year = rows[0].year;
+            var first_day = new Date(year, month - 1, '1');
+            //ultima zi a unei luni e cu 0 a lunii urmatoare (mai sus am facut -1 pt luna curenta)
+            var last_day = new Date(year, month, 0);
+            //fac refresh in caz ca s-a adaugat o luna sau un an nou
+            conn.refreshMetadata(month, year, function () {
+                conn.query("SELECT * FROM expenses WHERE (expense_date BETWEEN ? AND ?)", [first_day, last_day],
+                    function (err, rows) {
+                        //we pass the expenses for the needed month & year + the metadata
+                        cb(err, rows, conn.metadata);
+                    }
+                );
+            });
+        });
+    } else { //sunt pe cazul in care vin cu luna+an selectate de la comboboxes
+        var first_day = new Date(year, month - 1, '1');
+        var last_day = new Date(year, month, 0);
+        //fac refresh in caz ca s-a adaugat o luna sau un an nou
+        conn.refreshMetadata(month, year, function () {
+            conn.query("SELECT * FROM expenses WHERE (expense_date BETWEEN ? AND ?)", [first_day, last_day],
+                function (err, rows) {
+                    //we pass the expenses for the needed month & year + the metadata
+                    cb(err, rows, conn.metadata);
+                }
+            );
+        });
+    }
+};
+
+/**
+ * Functia asta ma ajuta cand vin pe view fara un request pentru luna+an. 
+ * Atunci vreau sa fac display la cele mai proaspete cheltuieli (luna+an cele mai mari)
+ * @param {callback} cb 
+ */
+const getExpensesFromNewestMonth = function (cb) {
+    conn.query("select MONTH(MAX(expense_date)) as month, YEAR(MAX(expense_date)) as year from expenses",
         function (err, rows) {
             cb(err, rows);
         }
     );
-};
+}
 
 const getExpensesByYear = function (year, cb) {
+
     var last_day = new Date(year, '12', 0);
     var first_day = new Date(year, '0', '1')
     return Expense.find({

@@ -9,6 +9,12 @@ var monthly_view_controller = require('../controllers/monthlyViewController');
 // GET list all expenses in this/last month
 router.get('/', monthly_view_controller.expenses_list_by_month);
 
+// POST list all expenses in this/last month
+router.post('/', monthly_view_controller.expenses_list_by_month);
+
+//POST which handles uploading new expenses from a file
+router.post("/load_file", monthly_view_controller.load_monthly_expenses_post);
+
 // POST list of expenses from a given month
 router.post('/monthly/:id',monthly_view_controller.expenses_list_by_month);
 

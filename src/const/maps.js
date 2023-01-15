@@ -3,13 +3,13 @@ const rate_words = ["credit", "rata", "rate", "unicredit"];
 const gradinita_words = ["gradinita", "gradi"];
 const cumparaturi_words = ["cargus", "fancurier", "folie", "ceai", "nasturi", "emag",
     "lime", "scutece", "plăcintă", "batoane", "", "periuta", "palibo", "cartofi", "popcorn",
-    "șuncă", "cumpărături", "aroma", "mancare", "gratar", "la2pasi", "kaufland", "piața",
+    "șuncă", "cumpărături", "aroma", "mancare", "branza", "gratar", "la2pasi", "kaufland", "piața",
     "kosarom", "exira", "carrefour", "carfur", "lidl", "profi", "selgros",
     "mega", "2pasi", "carmangerie", "cumparaturi", "cump", "auchan", "aeroport",
     "moldovencei", "cuptorul", "cuptor", "trans", "gigel", "bringo", "piata",
     "legume", "shopping", "mcs", "meat", "narghilea", "bere"];
 const eatingOut_words = ["cwrtofisserie", "mcdonald", "covrigi", "branzoice", "shaworma",
-    "salad", "cartofiserie", "kfc", "fornetti",
+    "salad", "cartofiserie", "kfc", "fornetti", "pizza",
     "mcdonald's", "matrioska", "plăcinte", "mado", "box", "prânz", "limonada",
     "restaurant", "fenis", "krud", "mec", "mcdonalds", "mc", "trumpets",
     "eatingout", "petru", "simigerie", "nico", "pranz", "glovo", "cafea",
@@ -21,7 +21,7 @@ const gunoi_words = ["gunoi"];
 const apa_words = ["apa", "apavital"];
 const telefoane_words = ["orange", "telefon", "tel"];
 const masini_words = ["taxi", "tramvai", "bilet", "bolt", "uber", "itp", "asigurare",
-    "rompetrol", "rovigneta", "toyota",
+    "rompetrol", "rovigneta", "toyota", "cauciucuri", "roti", "jante",
     "benzina", "ford", "plin", "omv", "motorina", "benzinarie", "mol"];
 const oana_words = ["oana"];
 const sanatate_words = ["cervical", "teste", "echo", "implant", "gineco", "ecografie",
@@ -36,7 +36,7 @@ const unghii_words = ["epilat", "unghii", "manichiura", "pedichiura"];
 const masaj_words = ["masaj", "natasa"];
 const tuns_words = ["tuns", "geta", "neleapca", "moler"];
 const home_words = ["leduri", "mini-vermorel", "monteaza", "irigație", "fitosanitare",
-    "pavele", "dedeman", "leroy", "praktiker", "brico"];
+    "pavele", "dedeman", "leroy", "praktiker", "brico", "vidanjare", "vidanja"];
 const haine_words = ["damat", "spălătorie", "chiloți", "chiloti", "haine", "hanorac",
     "sandale", "sinsay", "hm", "pepco", "tricou", "tricouri", "papuci", "pantofi", "blugi",
     "camasa", "fashion", "pantaloni", "sosete", "chiloti"];
@@ -44,7 +44,7 @@ const entertainment_words = ["joaca", "circ", "joacă", "trambulina", "spotify",
 const misc_words = ["cadou"];
 const education_words = ["carturesti", "carte", "carti", "curs", "training", "workshop"];
 const economii_words = ["economii"];
-const other_investments_words = ["ripple", "pamant"];
+const other_investments_words = ["ripple", "pamant", "investitii"];
 const stocks_words = ["stock", "stocks", "xtb"];
 const vacations_words = ["motogp", "italia", "vacanta"];
 const charity_words = ["donatie", "charity", "donatia"];

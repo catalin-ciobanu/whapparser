@@ -13,12 +13,13 @@ const monthlyRepo = require('../src/repo/expenseRepo');
 
 // Display list of all Expenses in that month.
 exports.expenses_list_by_month = (req, res) => {
-  monthlyRepo.getExpensesByMonth(req.body.month, req.body.year, function (err, list_expenses) {
-    if (err) { 
-      res.render('error', {error: err});
+  monthlyRepo.getExpensesByMonth(req.body.month, req.body.year, function (err, list_expenses, meta) {
+    if (err) {
+      res.render('error', { error: err });
       //return next(err); 
     }
-    res.render('expenses', { title: 'Expenses List', expense_list: list_expenses });
+    //trimit titlul, lista de cheltuieli dar si metadata
+    res.render('monthlyView', { title: 'Expenses List', expense_list: list_expenses, metadata: meta });
   });
 };
 
@@ -36,6 +37,6 @@ exports.expense_update_post = (req, res) => {
 exports.load_monthly_expenses_post = (req, res) => {
   var csvData = req.files.filename.data.toString('utf8');
   monthlyRepo.importFromFile(csvData, function () {
-    res.redirect('/');
+    res.redirect('/monthlyView');
   });
 };

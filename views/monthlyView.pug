@@ -1,11 +1,63 @@
 extends layout
 
 block content
-  h1= 'This is the Monthly View'  
   h1= title
-  ul 'Expenses by Month – upload, edit'
-    li 'Start with latest month' 
-    li 'Separate tabs for each month' 
-    li 'Top menu to select a specific month' 
-    li 'Upload file, store latest month and update view' 
-    li 'Ability to modify sum, category (dropdown), bucket (dropdown)' 
+  //h2= JSON.stringify(metadata)
+  ul 
+    li(style="color:green") Start with latest month
+    li(style="color:green") Top menu to select a specific month
+    li(style="color:green") Upload file, store latest month and update view
+    li Ability to modify sum, category (dropdown), bucket (dropdown)
+  //formul care imi selecteaza luna+an
+  form(action='/monthlyView', method='POST')
+    div
+      | Month: 
+      select(name = 'month', value=metadata.current.selectedMonth)
+        each mth in metadata.months
+          option(value=mth selected=(mth==metadata.current.selectedMonth)) #{mth}
+        else
+          p No Months in DB
+      |       Year: 
+      select(name = 'year', value=metadata.current.selectedYear)
+        each yr in metadata.years
+          option(value=yr selected=(yr==metadata.current.selectedYear)) #{yr}
+        else
+          p No Years in DB
+    input(type='submit', value='Filter By Month')
+  hr
+  //tabelul cu cheltuieli
+  table(style='width:100%', border='1')
+    th Description  
+    th Sum
+    th Date 
+    th Category  
+    th Bucket
+    th Name
+    th ID
+    each expense in expense_list
+      tr 
+        td #{expense.description} 
+        td #{expense.sum}  
+        td #{expense.expense_date} 
+        td #{expense.type} 
+        td #{expense.bucket}
+        td #{expense.name}
+        td #{expense._id}
+    else
+      p There are no expenses.
+    hr
+  //formul care imi face upload la fisier  
+  form(action="/monthlyVIew/load_file" method="POST" enctype="multipart/form-data")
+    input(type="file" id="myfile" name="filename")
+    input(type="submit")
+  //formul care imi face suma categoriei pe luna
+  form(action="/expenses/sumByCategoryByMonth" method="POST" enctype="multipart/form-data")
+    p
+      | category: 
+      input(type='text', name='category', value='')
+      | month: 
+      input(type='text', name='month', value='')
+      | year: 
+      input(type='text', name='year', value='')
+    input(type='submit', value='Get Sum for Category')
+
