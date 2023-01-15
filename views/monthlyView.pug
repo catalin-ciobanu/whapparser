@@ -1,12 +1,19 @@
 extends layout
-
 block content
+  hr
+  //formul care imi face upload la fisier  
+  form(action="/monthlyVIew/load_file" method="POST" enctype="multipart/form-data")
+    input(type="file" id="myfile" name="filename")
+    input(type="submit")
+  h2=path
   h1= title
+  h1= 'Total: ' + expense_list.reduce(function(total, item) { return total + item.sum; }, 0) + ' RON'
   //h2= JSON.stringify(metadata)
   ul 
     li(style="color:green") Start with latest month
     li(style="color:green") Top menu to select a specific month
     li(style="color:green") Upload file, store latest month and update view
+    li(style="color:green") Ability to click on a category or a bucket and see total + expenses only for the selected
     li Ability to modify sum, category (dropdown), bucket (dropdown)
   //formul care imi selecteaza luna+an
   form(action='/monthlyView', method='POST')
@@ -39,25 +46,11 @@ block content
         td #{expense.description} 
         td #{expense.sum}  
         td #{expense.expense_date} 
-        td #{expense.type} 
-        td #{expense.bucket}
+        td 
+          a(href=path + "/category/" + expense.type) #{expense.type}
+        td 
+          a(href=path + "/bucket/" + expense.bucket) #{expense.bucket}
         td #{expense.name}
         td #{expense._id}
     else
       p There are no expenses.
-    hr
-  //formul care imi face upload la fisier  
-  form(action="/monthlyVIew/load_file" method="POST" enctype="multipart/form-data")
-    input(type="file" id="myfile" name="filename")
-    input(type="submit")
-  //formul care imi face suma categoriei pe luna
-  form(action="/expenses/sumByCategoryByMonth" method="POST" enctype="multipart/form-data")
-    p
-      | category: 
-      input(type='text', name='category', value='')
-      | month: 
-      input(type='text', name='month', value='')
-      | year: 
-      input(type='text', name='year', value='')
-    input(type='submit', value='Get Sum for Category')
-

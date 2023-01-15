@@ -56,6 +56,79 @@ const getExpensesByMonth = function (month, year, cb) {
     }
 };
 
+const getExpensesByCategory = function (categ, cb) {
+    getExpensesByMonthAndCategory(conn.metadata.current.selectedMonth,
+        conn.metadata.current.selectedYear, categ, function (err, rows) {
+            cb(err, rows, conn.metadata);
+        });
+};
+
+const getExpensesByMonthAndCategory = function (month, year, categ, cb) {
+    if (!month || !year) { //sunt pe cazul in care vin "default", probabil din alt view
+        getExpensesFromNewestMonth(function (err, rows) {
+            month = rows[0].month;
+            year = rows[0].year;
+            var first_day = new Date(year, month - 1, '1');
+            //ultima zi a unei luni e cu 0 a lunii urmatoare (mai sus am facut -1 pt luna curenta)
+            var last_day = new Date(year, month, 0);
+            //fac refresh in caz ca s-a adaugat o luna sau un an nou
+            conn.refreshMetadata(month, year, function () {
+                conn.query("SELECT * FROM expenses WHERE (expense_date BETWEEN ? AND ?) AND type=?", [first_day, last_day, categ],
+                    function (err, rows) {
+                        //we pass the expenses for the needed month & year + the metadata
+                        cb(err, rows, conn.metadata);
+                    }
+                );
+            });
+        });
+    } else { //sunt pe cazul in care vin cu luna+an selectate de la comboboxes
+        var first_day = new Date(year, month - 1, '1');
+        var last_day = new Date(year, month, 0);
+        //fac refresh in caz ca s-a adaugat o luna sau un an nou
+        conn.refreshMetadata(month, year, function () {
+            conn.query("SELECT * FROM expenses WHERE (expense_date BETWEEN ? AND ?) AND type=?", [first_day, last_day, categ],
+                function (err, rows) {
+                    //we pass the expenses for the needed month & year + the metadata
+                    cb(err, rows, conn.metadata);
+                }
+            );
+        });
+    }
+};
+
+const getExpensesByMonthAndBucket = function (month, year, bucket, cb) {
+    if (!month || !year) { //sunt pe cazul in care vin "default", probabil din alt view
+        getExpensesFromNewestMonth(function (err, rows) {
+            month = rows[0].month;
+            year = rows[0].year;
+            var first_day = new Date(year, month - 1, '1');
+            //ultima zi a unei luni e cu 0 a lunii urmatoare (mai sus am facut -1 pt luna curenta)
+            var last_day = new Date(year, month, 0);
+            //fac refresh in caz ca s-a adaugat o luna sau un an nou
+            conn.refreshMetadata(month, year, function () {
+                conn.query("SELECT * FROM expenses WHERE (expense_date BETWEEN ? AND ?) AND bucket=?", [first_day, last_day, bucket],
+                    function (err, rows) {
+                        //we pass the expenses for the needed month & year + the metadata
+                        cb(err, rows, conn.metadata);
+                    }
+                );
+            });
+        });
+    } else { //sunt pe cazul in care vin cu luna+an selectate de la comboboxes
+        var first_day = new Date(year, month - 1, '1');
+        var last_day = new Date(year, month, 0);
+        //fac refresh in caz ca s-a adaugat o luna sau un an nou
+        conn.refreshMetadata(month, year, function () {
+            conn.query("SELECT * FROM expenses WHERE (expense_date BETWEEN ? AND ?) AND bucket=?", [first_day, last_day, bucket],
+                function (err, rows) {
+                    //we pass the expenses for the needed month & year + the metadata
+                    cb(err, rows, conn.metadata);
+                }
+            );
+        });
+    }
+};
+
 /**
  * Functia asta ma ajuta cand vin pe view fara un request pentru luna+an. 
  * Atunci vreau sa fac display la cele mai proaspete cheltuieli (luna+an cele mai mari)
@@ -84,17 +157,7 @@ const getExpensesByYear = function (year, cb) {
         .exec(cb);
 };
 
-const getExpensesByCategory = function (categ, cb) {
-    console.log("Filtering by: " + categ);
-    return Expense.find({
-        "type":
-        {
-            $eq: categ
-        }
-    })
-        .sort({ expense_date: 1 })
-        .exec(cb);
-};
+
 
 const getExpensesByCategoryByMonth = function (categ, month, year, cb) {
     console.log("Filtering by: " + categ + ", " + month + ", " + year);
@@ -131,12 +194,10 @@ const getExpensesByCategoryByYear = function (categ, year) {
 };
 
 const getExpensesByBucket = function (bucket, cb) {
-    console.log("Filtering by: " + bucket);
-    return Expense.find({
-        "bucket": { $eq: bucket }
-    })
-        .sort({ expense_date: 1 })
-        .exec(cb);
+    getExpensesByMonthAndBucket(conn.metadata.current.selectedMonth,
+        conn.metadata.current.selectedYear, bucket, function (err, rows) {
+            cb(err, rows, conn.metadata);
+        });
 };
 
 const getExpensesByBucketByMonth = function (bucket, month, year) {

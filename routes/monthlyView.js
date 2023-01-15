@@ -15,8 +15,11 @@ router.post('/', monthly_view_controller.expenses_list_by_month);
 //POST which handles uploading new expenses from a file
 router.post("/load_file", monthly_view_controller.load_monthly_expenses_post);
 
-// POST list of expenses from a given month
-router.post('/monthly/:id',monthly_view_controller.expenses_list_by_month);
+// GET list of expenses from a given category
+router.get('/category/:id',monthly_view_controller.expenses_list_by_category);
+
+// GET list of expenses from a given bucket
+router.get('/bucket/:id',monthly_view_controller.expenses_list_by_bucket);
 
 // POST request to delete expense.
 router.post('/monthly/:id/delete', monthly_view_controller.expense_delete_post);
