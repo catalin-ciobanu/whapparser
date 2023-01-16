@@ -5,9 +5,7 @@ block content
   form(action="/monthlyVIew/load_file" method="POST" enctype="multipart/form-data")
     input(type="file" id="myfile" name="filename")
     input(type="submit")
-  h2=path
-  h1= title
-  h1= 'Total: ' + expense_list.reduce(function(total, item) { return total + parseFloat(item.sum); }, 0) + ' RON'
+  //h1= path
   //h2= JSON.stringify(metadata)
   .table-wrapper
     //formul care imi selecteaza luna+an
@@ -26,6 +24,8 @@ block content
           else
             p No Years in DB
       input(class="wrapped-top-menu", type='submit', value='Filter By Month')
+      div(class="wrapped-top-menu")= title
+      div(class="wrapped-top-menu")= 'Total: ' + expense_list.reduce(function(total, item) { return total + parseFloat(item.sum); }, 0) + ' RON'
     //tabelul cu cheltuieli
     table(class="fl-table")
       thead
@@ -35,7 +35,7 @@ block content
         th Category  
         th Bucket
         th Name
-        th ID
+        th(style="display:none;") ID
       tbody  
       each expense in expense_list
         tr 
@@ -47,6 +47,6 @@ block content
           td 
             a(href=path + "/bucket/" + expense.bucket) #{expense.bucket}
           td #{expense.name}
-          td #{expense._id}
+          td(style="display:none;") #{expense._id}
       else
         p There are no expenses.
