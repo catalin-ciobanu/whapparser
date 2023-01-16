@@ -7,7 +7,7 @@ block content
     input(type="submit")
   h2=path
   h1= title
-  h1= 'Total: ' + expense_list.reduce(function(total, item) { return total + item.sum; }, 0) + ' RON'
+  h1= 'Total: ' + expense_list.reduce(function(total, item) { return total + parseFloat(item.sum); }, 0) + ' RON'
   //h2= JSON.stringify(metadata)
   ul 
     li(style="color:green") Start with latest month

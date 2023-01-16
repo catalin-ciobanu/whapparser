@@ -42,7 +42,7 @@ var processFileContent = function (input) {
             var incomingDate = cleanDate(myarray[1]);
             currentLine.expense_date = new Date(incomingDate.year, incomingDate.month, incomingDate.day);
             currentLine.name = cleanName(myarray[3]);
-            currentLine.sum = myarray[5];
+            currentLine.sum = myarray[5].replace(",",".");
             currentLine.description = myarray[6];
             var categ_and_bucket = get_Category_Bucket(myarray[6]);
             currentLine.bucket = categ_and_bucket.bucket;
@@ -64,7 +64,7 @@ var get_Category_Bucket = function (description) {
                 for (var j in Maps.constMaps) {
                     category = Maps.constMaps[j];
                     if (category.categ_words.includes(word.toLowerCase())) {
-                        console.log("Found " + category.categ_name + " - " + category.bucket_name);
+                        //console.log("Found " + category.categ_name + " - " + category.bucket_name);
                         return {
                             "category": category.categ_name,
                             "bucket": category.bucket_name
