@@ -30,7 +30,7 @@ var processFileContent = function (input) {
                 //ia fiecare bucata cuvant si vezi ce fel de text e: descriere, data etc..
                 if (elemArray[v].indexOf(']') == -1) {
                     text += elemArray[v] + " ";
-                    text.replace(' lei ', '').replace(' RON ', '').replace(' ron ', '');
+                    text = text.replace(' lei ', ' ').replace(' RON ', ' ').replace(' ron ', ' ');
                 }
                 else
                     continue;

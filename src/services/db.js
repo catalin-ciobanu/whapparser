@@ -45,11 +45,11 @@ SELECT
   SUM(CASE WHEN type = 'Stocks' THEN sum ELSE 0 END) AS 'Stocks',
   SUM(CASE WHEN type = 'Vacations' THEN sum ELSE 0 END) AS 'Vacations',
   SUM(CASE WHEN type = 'Charity' THEN sum ELSE 0 END) AS 'Charity',
-  SUM(CASE WHEN type = 'Total Cheltuieli' THEN sum ELSE 0 END) AS 'Total Cheltuieli',
-  SUM(CASE WHEN type = 'Total Education' THEN sum ELSE 0 END) AS 'Total Education',
-  SUM(CASE WHEN type = 'Total Investitii' THEN sum ELSE 0 END) AS 'Total Investitii',
-  SUM(CASE WHEN type = 'Total Vacation' THEN sum ELSE 0 END) AS 'Total Vacation',
-  SUM(CASE WHEN type = 'Total Charity' THEN sum ELSE 0 END) AS 'Total Charity'
+  SUM(CASE WHEN bucket = 'Total Cheltuieli' THEN sum ELSE 0 END) AS 'Total Cheltuieli',
+  SUM(CASE WHEN bucket = 'Total Education' THEN sum ELSE 0 END) AS 'Total Education',
+  SUM(CASE WHEN bucket = 'Total Investitii' THEN sum ELSE 0 END) AS 'Total Investitii',
+  SUM(CASE WHEN bucket = 'Total Vacation' THEN sum ELSE 0 END) AS 'Total Vacation',
+  SUM(CASE WHEN bucket = 'Total Charity' THEN sum ELSE 0 END) AS 'Total Charity'
 FROM
   expenses
 GROUP BY

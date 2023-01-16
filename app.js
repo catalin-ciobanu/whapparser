@@ -13,6 +13,7 @@ var expensesRouter = require('./routes/expenses');
 var reportsRouter = require('./routes/reports');
 var dashboardRouter = require('./routes/dashboard');
 var monthlyViewRouter = require('./routes/monthlyView');
+var categoryViewRouter = require('./routes/categoryView');
 
 var app = express();
 
@@ -29,10 +30,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/', monthlyViewRouter);
-app.use('/expenses', expensesRouter); // Add catalog routes to middleware chain.
-app.use('/dashboard', dashboardRouter); // Add catalog routes to middleware chain.
-app.use('/reports', reportsRouter); // Add catalog routes to middleware chain.
-app.use('/monthlyView', monthlyViewRouter); // Add catalog routes to middleware chain.
+app.use('/expenses', expensesRouter); 
+app.use('/dashboard', dashboardRouter); 
+app.use('/reports', reportsRouter); 
+app.use('/monthlyView', monthlyViewRouter); 
+app.use('/categoryView', categoryViewRouter);
 
 
 

@@ -79,11 +79,11 @@ const category = [
     { categ_name: "Haine", bucket_name: "Total Cheltuieli", categ_words: haine_words },
     { categ_name: "Entertainment", bucket_name: "Total Cheltuieli", categ_words: entertainment_words },
     { categ_name: "Misc", bucket_name: "Total Cheltuieli", categ_words: misc_words },
-    { categ_name: "Education", bucket_name: "Total Education", categ_words: education_words },
     { categ_name: "Economii", bucket_name: "Total Economii", categ_words: economii_words },
     { categ_name: "Other investments", bucket_name: "Total Investitii", categ_words: other_investments_words },
     { categ_name: "Stocks", bucket_name: "Total Investitii", categ_words: stocks_words },
-    { categ_name: "Vacations", bucket_name: "Total Vacation", categ_words: vacations_words },
-    { categ_name: "Charity", bucket_name: "Total Charity", categ_words: charity_words }];
+    { categ_name: "Education", bucket_name: "Total Ed Vac Char", categ_words: education_words },
+    { categ_name: "Vacations", bucket_name: "Total Ed Vac Char", categ_words: vacations_words },
+    { categ_name: "Charity", bucket_name: "Total Ed Vac Char", categ_words: charity_words }];
 
     module.exports = { constMaps: category };
