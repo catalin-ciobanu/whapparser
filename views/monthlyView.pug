@@ -9,48 +9,44 @@ block content
   h1= title
   h1= 'Total: ' + expense_list.reduce(function(total, item) { return total + parseFloat(item.sum); }, 0) + ' RON'
   //h2= JSON.stringify(metadata)
-  ul 
-    li(style="color:green") Start with latest month
-    li(style="color:green") Top menu to select a specific month
-    li(style="color:green") Upload file, store latest month and update view
-    li(style="color:green") Ability to click on a category or a bucket and see total + expenses only for the selected
-    li Ability to modify sum, category (dropdown), bucket (dropdown)
-  //formul care imi selecteaza luna+an
-  form(action='/monthlyView', method='POST')
-    div
-      | Month: 
-      select(name = 'month', value=metadata.current.selectedMonth)
-        each mth in metadata.months
-          option(value=mth selected=(mth==metadata.current.selectedMonth)) #{mth}
-        else
-          p No Months in DB
-      |       Year: 
-      select(name = 'year', value=metadata.current.selectedYear)
-        each yr in metadata.years
-          option(value=yr selected=(yr==metadata.current.selectedYear)) #{yr}
-        else
-          p No Years in DB
-    input(type='submit', value='Filter By Month')
-  hr
-  //tabelul cu cheltuieli
-  table(style='width:100%', border='1')
-    th Description  
-    th Sum
-    th Date 
-    th Category  
-    th Bucket
-    th Name
-    th ID
-    each expense in expense_list
-      tr 
-        td #{expense.description} 
-        td #{expense.sum}  
-        td #{expense.expense_date} 
-        td 
-          a(href=path + "/category/" + expense.type) #{expense.type}
-        td 
-          a(href=path + "/bucket/" + expense.bucket) #{expense.bucket}
-        td #{expense.name}
-        td #{expense._id}
-    else
-      p There are no expenses.
+  .table-wrapper
+    //formul care imi selecteaza luna+an
+    form(class="wrapped-form", action='/monthlyView', method='POST')
+      div
+        | Month: 
+        select(class="wrapped-top-menu", name = 'month', value=metadata.current.selectedMonth)
+          each mth in metadata.months
+            option(value=mth selected=(mth==metadata.current.selectedMonth)) #{mth}
+          else
+            p No Months in DB
+        |       Year: 
+        select(class="wrapped-top-menu", name = 'year', value=metadata.current.selectedYear)
+          each yr in metadata.years
+            option(value=yr selected=(yr==metadata.current.selectedYear)) #{yr}
+          else
+            p No Years in DB
+      input(class="wrapped-top-menu", type='submit', value='Filter By Month')
+    //tabelul cu cheltuieli
+    table(class="fl-table")
+      thead
+        th Description  
+        th Sum
+        th Date 
+        th Category  
+        th Bucket
+        th Name
+        th ID
+      tbody  
+      each expense in expense_list
+        tr 
+          td #{expense.description} 
+          td #{expense.sum}  
+          td #{expense.expense_date} 
+          td 
+            a(href=path + "/category/" + expense.type) #{expense.type}
+          td 
+            a(href=path + "/bucket/" + expense.bucket) #{expense.bucket}
+          td #{expense.name}
+          td #{expense._id}
+      else
+        p There are no expenses.
