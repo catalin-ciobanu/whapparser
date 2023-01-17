@@ -151,7 +151,22 @@ h2 {
   gap: 1em;
   font-size: 18px;
   padding: 5px 14px;
+  
 }
 .wrapped-form .wrapped-top-menu {
   padding: 5px 14px;
+}
+
+.wrapped-form .month-title{
+  border: 1px solid #324960;
+}
+
+.upload-form {
+  display: flex;
+  background-color: #F8F8F8;;
+  gap: 1em;
+  font-size: 18px;
+  padding: 5px 14px;
+  border: 1px solid #324960;
+  
 }
