@@ -39,10 +39,8 @@ block content
         th Vacations
         th Charity
         th Total Cheltuieli
-        th Total Education
         th Total Investitii
-        th Total Vacation
-        th Total Charity
+        th Total Ed Vac Char
       tbody  
       each expense in expense_list
         tr 
@@ -78,10 +76,8 @@ block content
           td #{expense.Vacations}
           td #{expense.Charity}
           td #{expense["Total Cheltuieli"]}
-          td #{expense["Total Education"]}
           td #{expense["Total Investitii"]}
-          td #{expense["Total Vacation"]}
-          td #{expense["Total Charity"]}
+          td #{expense["Total Ed Vac Char"]}
 
       else
         p There are no expenses.
