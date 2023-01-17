@@ -1,6 +1,8 @@
 # whapparser
+Application which parses a whatsapp export (Extract), uses keywords to map data in a certain format (Transform) and saves it into the relational database (Load).
+Based on the model defined in the database, it shows different reports.
 
-##Setup
+## Setup
 
 ### Install packages
 `npm install`
