@@ -22,7 +22,7 @@ exports.expenses_list_by_month = (req, res) => {
     res.locals.path = req.originalUrl;
     //trimit titlul, lista de cheltuieli dar si metadata
     res.render('monthlyView', {
-      title: 'Expenses List from: ' + meta.current.selectedMonth +
+      title: 'Expenses for: ' + meta.current.selectedMonth +
         ", " + meta.current.selectedYear
       , expense_list: list_expenses, metadata: meta
     });
@@ -39,9 +39,7 @@ exports.expenses_list_by_category = (req, res) => {
     res.locals.path = req.originalUrl;
     //trimit titlul, lista de cheltuieli dar si metadata
     res.render('monthlyView', {
-      title: 'Expenses List from: ' + meta.current.selectedMonth +
-        ", " + meta.current.selectedYear + 
-        ", Category: " + req.params.id
+      title: "Category: " + req.params.id
       , expense_list: list_expenses, metadata: meta
     });
   });
@@ -57,9 +55,7 @@ exports.expenses_list_by_bucket = (req, res) => {
     res.locals.path = req.originalUrl;
     //trimit titlul, lista de cheltuieli dar si metadata
     res.render('monthlyView', {
-      title: 'Expenses List from: ' + meta.current.selectedMonth +
-        ", " + meta.current.selectedYear + 
-        ", Bucket: " + req.params.id
+      title: "Bucket: " + req.params.id
       , expense_list: list_expenses, metadata: meta
     });
   });

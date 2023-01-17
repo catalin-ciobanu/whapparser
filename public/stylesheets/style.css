@@ -23,6 +23,7 @@ h2 {
 .table-wrapper {
   margin: 10px 70px 70px;
   box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
+  overflow: scroll;
 }
 
 .fl-table {
@@ -151,22 +152,71 @@ h2 {
   gap: 1em;
   font-size: 18px;
   padding: 5px 14px;
-  
+
 }
+
 .wrapped-form .wrapped-top-menu {
   padding: 5px 14px;
 }
 
-.wrapped-form .month-title{
+.wrapped-form .month-title {
   border: 1px solid #324960;
 }
 
 .upload-form {
   display: flex;
-  background-color: #F8F8F8;;
+  background-color: #F8F8F8;
   gap: 1em;
   font-size: 18px;
   padding: 5px 14px;
   border: 1px solid #324960;
+
+}
+
+.navigation-bar {
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: normal;
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  background-color: white;
+  margin-bottom: 13px;
+}
+
+.navigation-bar a {
+  text-align: center;
+  padding: 3px;
+  padding-right: 10px;
+  border-right: 1px solid #f8f8f8;
+  font-size: 15px;
   
+  font-style: italic;
+  color: #ffffff;
+  background: #4FC3A1;
+  margin-right: 5px;
+}
+
+.navigation-bar a.selected-page {
+  text-align: center;
+  padding: 13px;
+  border-right: 1px solid #f8f8f8;
+  font-size: 15px;
+  font-weight: bold;
+  font-style: italic;
+  color: #ffffff;
+  background: #4FC3A1;
+}
+
+.navigation-bar a:nth-child(odd) {
+  color: #ffffff;
+  background: #324960;
+}
+
+.navigation-bar a.selected-page:nth-child(odd) {
+  padding: 13px;
+  color: #ffffff;
+  background: #324960;
 }

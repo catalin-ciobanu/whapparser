@@ -28,6 +28,6 @@ router.post('/monthly/:id/delete', monthly_view_controller.expense_delete_post);
 router.post('/monthly/:id/update', monthly_view_controller.expense_update_post);
 
 // POST load last month from whatsapp generated file
-router.post('/monthly/load_file', monthly_view_controller.load_monthly_expenses_post);
+router.post('/monthlyView/load_file', monthly_view_controller.load_monthly_expenses_post);
 
 module.exports = router;

@@ -3,8 +3,10 @@ block content
   //h1= path
   //h2= JSON.stringify(metadata)
   .table-wrapper
-    
     //formul care imi selecteaza luna+an
+    .navigation-bar
+      a(href="/monthlyView" class="selected-page") Monthly view
+      a(href="/categoryView") Category view
     form(class="wrapped-form", action='/monthlyView', method='POST')
       div
         | Month: 
@@ -22,11 +24,11 @@ block content
       input(class="wrapped-top-menu", type='submit', value='Filter By Month')
       div(class="wrapped-top-menu month-title")= title
       div(class="wrapped-top-menu month-title")= 'Total: ' + expense_list.reduce(function(total, item) { return total + parseFloat(item.sum); }, 0) + ' RON'
-      .upload-form
-        //formul care imi face upload la fisier  
-        form(action="/monthlyVIew/load_file" method="POST" enctype="multipart/form-data")
-          input(type="file" id="myfile" name="filename")
-          input(type="submit")
+    .upload-form
+      //formul care imi face upload la fisier  
+      form(action="/monthlyView/load_file" method="POST" enctype="multipart/form-data")
+        input(type="file" id="myfile" name="filename")
+        input(type="submit")
     //tabelul cu cheltuieli
     table(class="fl-table")
       thead

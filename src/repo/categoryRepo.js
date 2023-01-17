@@ -3,7 +3,7 @@ const conn = require("../services/db");
 
 
 const getAllExpensesByCategoryAndBucket = function (cb) {
-    conn.query("SELECT * FROM monthly_categ_bucket", [],
+    conn.query("SELECT * FROM monthly_categ_bucket ORDER BY Month Desc", [],
         function (err, rows) {
             cb(err, rows);
         }

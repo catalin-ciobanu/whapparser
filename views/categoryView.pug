@@ -1,87 +1,87 @@
 extends layout
 block content
-  h2=path
-  h1= title
-  //h2= JSON.stringify(metadata)
-  ul 
-    li Top month at the top of the table
-  
-  //tabelul cu cheltuieli
-  table(style='width:100%', border='1')
-    th Month  
-    th In
-    th Out
-    th Sanatate
-    th Telefoane
-    th Cumparaturi
-    th Rate
-    th Gradinita
-    th Eating out
-    th Electricitate
-    th Gaz
-    th Digi
-    th Gunoi
-    th Apa 
-    th Masini-Transport
-    th Oana
-    th Jucarii
-    th Sala
-    th Unghii-Epilat
-    th Masaj
-    th Tuns
-    th Home projects
-    th Haine
-    th Entertainment
-    th Misc
-    th Education
-    th Economii
-    th Other investments
-    th Stocks
-    th Vacations
-    th Charity
-    th Total Cheltuieli
-    th Total Education
-    th Total Investitii
-    th Total Vacation
-    th Total Charity
-    each expense in expense_list
-      tr 
-        td #{expense.Month}
-        td #{expense.In}
-        td #{expense.Out}
-        td #{expense.Sanatate}
-        td #{expense.Telefoane}
-        td #{expense.Cumparaturi}
-        td #{expense.Rate}
-        td #{expense.Gradinita}
-        td #{expense["Eating out"]}
-        td #{expense.Electricitate}
-        td #{expense.Gaz}
-        td #{expense.Digi}
-        td #{expense.Gunoi}
-        td #{expense.Apa}
-        td #{expense["Masini-Transport"]}
-        td #{expense.Oana}
-        td #{expense.Jucarii}
-        td #{expense.Sala}
-        td #{expense["Unghii-Epilat"]}
-        td #{expense.Masaj}
-        td #{expense.Tuns}
-        td #{expense["Home projects"]}
-        td #{expense.Haine}
-        td #{expense.Entertainment}
-        td #{expense.Misc}
-        td #{expense.Education}
-        td #{expense.Economii}
-        td #{expense["Other investments"]}
-        td #{expense.Stocks}
-        td #{expense.Vacations}
-        td #{expense.Charity}
-        td #{expense["Total Cheltuieli"]}
-        td #{expense["Total Education"]}
-        td #{expense["Total Investitii"]}
-        td #{expense["Total Vacation"]}
-        td #{expense["Total Charity"]}
+  .table-wrapper
+    .navigation-bar
+      a(href="/monthlyView") Monthly view
+      a(href="/categoryView" class="selected-page") Category view
+    //tabelul cu cheltuieli
+    table(class="fl-table")
+      thead
+        th Month  
+        th In
+        th Out
+        th Sanatate
+        th Telefoane
+        th Cumparaturi
+        th Rate
+        th Gradinita
+        th Eating out
+        th Electricitate
+        th Gaz
+        th Digi
+        th Gunoi
+        th Apa 
+        th Masini-Transport
+        th Oana
+        th Jucarii
+        th Sala
+        th Unghii-Epilat
+        th Masaj
+        th Tuns
+        th Home projects
+        th Haine
+        th Entertainment
+        th Misc
+        th Education
+        th Economii
+        th Other investments
+        th Stocks
+        th Vacations
+        th Charity
+        th Total Cheltuieli
+        th Total Education
+        th Total Investitii
+        th Total Vacation
+        th Total Charity
+      tbody  
+      each expense in expense_list
+        tr 
+          td #{expense.Month}
+          td #{expense.In}
+          td #{expense.Total_Out}
+          td #{expense.Sanatate}
+          td #{expense.Telefoane}
+          td #{expense.Cumparaturi}
+          td #{expense.Rate}
+          td #{expense.Gradinita}
+          td #{expense["Eating out"]}
+          td #{expense.Electricitate}
+          td #{expense.Gaz}
+          td #{expense.Digi}
+          td #{expense.Gunoi}
+          td #{expense.Apa}
+          td #{expense["Masini-Transport"]}
+          td #{expense.Oana}
+          td #{expense.Jucarii}
+          td #{expense.Sala}
+          td #{expense["Unghii-Epilat"]}
+          td #{expense.Masaj}
+          td #{expense.Tuns}
+          td #{expense["Home projects"]}
+          td #{expense.Haine}
+          td #{expense.Entertainment}
+          td #{expense.Misc}
+          td #{expense.Education}
+          td #{expense.Economii}
+          td #{expense["Other investments"]}
+          td #{expense.Stocks}
+          td #{expense.Vacations}
+          td #{expense.Charity}
+          td #{expense["Total Cheltuieli"]}
+          td #{expense["Total Education"]}
+          td #{expense["Total Investitii"]}
+          td #{expense["Total Vacation"]}
+          td #{expense["Total Charity"]}
 
-    else
-      p There are no expenses.
+      else
+        p There are no expenses.

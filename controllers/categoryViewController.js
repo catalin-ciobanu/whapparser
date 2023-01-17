@@ -15,7 +15,7 @@ exports.expenses_list_by_category_bucket = (req, res) => {
     res.locals.path = req.originalUrl;
     //trimit titlul, lista de cheltuieli dar si metadata
     res.render('categoryView', {
-      title: 'Expenses List for categories and bucket', expense_list: list_expenses
+      title: 'Expenses list for categories and bucket', expense_list: list_expenses
     });
   });
 };
