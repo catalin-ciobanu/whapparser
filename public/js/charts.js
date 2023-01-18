@@ -62,6 +62,9 @@ const pie_data = {
                         labels: resultSet.map(row => row.category),
                         datasets: [{
                             label: 'Cheltuieli per categorii',
+                            backgroundColor: [
+                                '#4FC3A1'
+                            ],
                             data: resultSet.map(row => row.sum),
                             hoverOffset: 4
                         }]
