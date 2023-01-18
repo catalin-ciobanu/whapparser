@@ -40,7 +40,7 @@ const pie_data = {
                     data: {
                         labels: resultSet.map(row => row.category),
                         datasets: [{
-                            label: 'Cheltuieli per categorii',
+                            //label: 'Cheltuieli per categorii',
                             data: resultSet.map(row => row.sum),
                             hoverOffset: 4
                         }]
@@ -51,6 +51,13 @@ const pie_data = {
                 document.getElementById('bar_weekly'),
                 {
                     type: 'bar',
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    },
                     data: {
                         labels: resultSet.map(row => row.category),
                         datasets: [{

@@ -9,9 +9,9 @@ block content
       a(href="/categoryView") Category view
     .chart-container
       .top-chart
-        canvas(class="top_chart-pie" id="pie_categories")
+        canvas(class="top_chart-pie", id="pie_categories")
       .top-chart
-        canvas(class="top_chart-bar" id="bar_weekly")
+        canvas(class="top_chart-bar", id="bar_weekly", height="300px", width="600px")
     //formul care imi selecteaza luna+an
     form(class="wrapped-form", action='/monthlyView', method='POST')
       div

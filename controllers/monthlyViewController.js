@@ -100,7 +100,9 @@ Oana:'235.00'
     let totals = Object.values(list_expenses[0]);
     let result = [], i = 2;
     for (i = 2; i < categories.length; i++) {
-      result[i - 2] = { category: categories[i], sum: totals[i] }
+      if (totals[i] > 0) {
+        result.push({ category: categories[i], sum: totals[i] });
+      }
     }
     res.send(JSON.stringify(result));
   });
