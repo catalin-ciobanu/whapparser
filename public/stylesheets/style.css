@@ -192,7 +192,6 @@ h2 {
   padding-right: 10px;
   border-right: 1px solid #f8f8f8;
   font-size: 15px;
-  
   font-style: italic;
   color: #ffffff;
   background: #4FC3A1;
@@ -219,4 +218,48 @@ h2 {
   padding: 13px;
   color: #ffffff;
   background: #324960;
+}
+
+.chart-container {
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: normal;
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  white-space: nowrap;
+  background-color: white;
+  display: flex;
+
+}
+
+.top-chart {
+  max-width:100%;
+  width:100%;
+}
+
+.top-chart-pie {
+  width: 300px;
+  max-width: 300px;
+  height: 300px;
+  width: 300px;
+  margin-left: 2px;
+  height: inherit;
+  max-height: inherit;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+.top-chart-bar {
+  width: 1000px;
+  max-width: 100%;
+  margin-left: 2px;
+  height: 300px;
+  width: 600px;
+  height: 1000px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.top-chart canvas {
+  margin: 0 auto;
 }

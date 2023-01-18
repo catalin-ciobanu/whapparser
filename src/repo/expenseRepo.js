@@ -157,7 +157,13 @@ const getExpensesByYear = function (year, cb) {
         .exec(cb);
 };
 
-
+const getTotalExpensesByCategories = function (month, cb) {
+    conn.query("SELECT * FROM monthly_categ_bucket where month = ? ORDER BY Month Desc", [month],
+        function (err, rows) {
+            cb(err, rows);
+        }
+    );
+}
 
 const getExpensesByCategoryByMonth = function (categ, month, year, cb) {
     console.log("Filtering by: " + categ + ", " + month + ", " + year);
@@ -382,13 +388,6 @@ module.exports = {
     getExpensesByBucket: getExpensesByBucket,
     getExpensesByName: getExpensesByName,
     deleteAllExpenses: deleteAllExpenses,
-    deleteExpenseById: deleteExpenseById
+    deleteExpenseById: deleteExpenseById,
+    getTotalExpensesByCategories: getTotalExpensesByCategories
 };
-
-
-
-
-
-
-
-// [{$match: {"expense_date": {$gte: first_day,$lte: last_day}}},{$group: {_id: "$type",total: {$sum: "$sum"}}}]

@@ -79,3 +79,29 @@ exports.load_monthly_expenses_post = (req, res) => {
     res.redirect('/monthlyView');
   });
 };
+
+exports.chart_data = (req, res) => {
+
+  /**
+   * 
+Masini-Transport:'2950.00'
+Misc:'349.00'
+Month:'2023-01'
+Oana:'235.00'
+   */
+
+  expenseRepo.getTotalExpensesByCategories(req.query.month, function (err, list_expenses) {
+    if (err) {
+      res.render('error', { error: err });
+      //return next(err); 
+    }
+    //let someData = [{ 'category': 'Farmacie', 'sum': 2004 }, { 'category': 'Cheltuieli', 'sum': 20014 }, { 'category': 'Oana', 'sum': 1002 }];
+    let categories = Object.keys(list_expenses[0]);
+    let totals = Object.values(list_expenses[0]);
+    let result = [], i = 2;
+    for (i = 2; i < categories.length; i++) {
+      result[i - 2] = { category: categories[i], sum: totals[i] }
+    }
+    res.send(JSON.stringify(result));
+  });
+}
