@@ -18,8 +18,11 @@ const pie_data = {
     // Making our connection  
     var url = '/monthlyView/getChartData';
     const month = document.querySelector("[name=month]").value;
+    const lastMonth = month == 1 ? 12 : parseInt(month) - 1;
     const year = document.querySelector("[name=year]").value;
+    const lastYear = month == 1 ? parseInt(year) - 1 : year;
     url += "?month=" + year + "-" + (month.length == 2 ? month : "0" + month);
+    url += "&lastMonth=" + lastYear + "-" + (lastMonth.toString().length == 2 ? lastMonth : "0" + lastMonth);
     xhr.open("GET", url, true);
 
     // function execute after request is successful 
@@ -38,10 +41,10 @@ const pie_data = {
                         }
                     },
                     data: {
-                        labels: resultSet.map(row => row.category),
+                        labels: resultSet[0].map(row => row.category),
                         datasets: [{
-                            //label: 'Cheltuieli per categorii',
-                            data: resultSet.map(row => row.sum),
+                            //label: 'Luna curenta',
+                            data: resultSet[0].map(row => row.sum),
                             hoverOffset: 4
                         }]
                     }
@@ -59,15 +62,26 @@ const pie_data = {
                         }
                     },
                     data: {
-                        labels: resultSet.map(row => row.category),
+                        labels: resultSet[0].map(row => row.category),
                         datasets: [{
-                            label: 'Cheltuieli per categorii',
+                            label: 'Luna curenta: ' + year + "-" +
+                                (month.length == 2 ? month : "0" + month),
+                            data: resultSet[0].map(row => row.sum),
+                            hoverOffset: 4,
                             backgroundColor: [
                                 '#4FC3A1'
-                            ],
-                            data: resultSet.map(row => row.sum),
-                            hoverOffset: 4
-                        }]
+                            ]
+                        }, {
+                            label: 'Luna trecuta: ' + lastYear + "-" +
+                                (lastMonth.toString().length == 2 ? lastMonth : "0" + lastMonth),
+                            data: resultSet[1].map(row => row.sum),
+                            hoverOffset: 4,
+                            backgroundColor: [
+                                '#324960'
+                            ]
+                        }
+
+                        ]
                     }
                 }
             );

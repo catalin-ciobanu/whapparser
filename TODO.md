@@ -1,5 +1,5 @@
 # Ordered backlog
-1. in the monthly view bar chart I want to show currenet month vs last month for each category
+~~1. in the monthly view bar chart I want to show currenet month vs last month for each category~~
 2. in the monthly view I need to be able to see IN vs OUT
     - This means I need to be able to specify for each month what is the INCOME
 3. in the monthly view I need a way to add, remove and edit (sum, category and bucket of) expenses
@@ -10,3 +10,8 @@
     - a line chart showing IN/OUT from month to month
     - on click on a category, display a line chart showing expenses for that cagegory from month to month
 6. a dashboard to check Current-Year + Year-over-Year statistics, probably charts
+7. refactor for code reusability, design patterns/code cleanness - make code easily testable
+8. implement tests
+    - unit tests for logic
+    - integration tests for db repos
+    - consider test database

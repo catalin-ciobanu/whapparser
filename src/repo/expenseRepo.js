@@ -157,8 +157,8 @@ const getExpensesByYear = function (year, cb) {
         .exec(cb);
 };
 
-const getTotalExpensesByCategories = function (month, cb) {
-    conn.query("SELECT * FROM monthly_categ_bucket where month = ? ORDER BY Month Desc", [month],
+const getTotalExpensesByCategories = function (month, lastMonth, cb) {
+    conn.query("SELECT * FROM monthly_categ_bucket where month = ? OR month = ? ORDER BY Month Desc", [month, lastMonth],
         function (err, rows) {
             cb(err, rows);
         }

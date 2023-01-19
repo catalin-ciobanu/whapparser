@@ -90,20 +90,23 @@ Month:'2023-01'
 Oana:'235.00'
    */
 
-  expenseRepo.getTotalExpensesByCategories(req.query.month, function (err, list_expenses) {
+  expenseRepo.getTotalExpensesByCategories(req.query.month, req.query.lastMonth, function (err, list_expenses) {
     if (err) {
       res.render('error', { error: err });
       //return next(err); 
     }
     //let someData = [{ 'category': 'Farmacie', 'sum': 2004 }, { 'category': 'Cheltuieli', 'sum': 20014 }, { 'category': 'Oana', 'sum': 1002 }];
-    let categories = Object.keys(list_expenses[0]);
-    let totals = Object.values(list_expenses[0]);
-    let result = [], i = 2;
-    for (i = 2; i < categories.length; i++) {
-      if (totals[i] > 0) {
-        result.push({ category: categories[i], sum: totals[i] });
+    let categories_current = Object.keys(list_expenses[0]);
+    let totals_current = Object.values(list_expenses[0]);
+    let categories_last = Object.keys(list_expenses[1]);
+    let totals_last = Object.values(list_expenses[1]);
+    let result_current = [], result_last =[], i = 2;//we do not parse the month and the TOTAL which are the first two items in the result
+    for (i; i < categories_current.length; i++) {
+      if (totals_current[i] > 0) {
+        result_current.push({ category: categories_current[i], sum: totals_current[i] });
+        result_last.push({ category: categories_last[i], sum: totals_last[i] });
       }
     }
-    res.send(JSON.stringify(result));
+    res.send(JSON.stringify([result_current, result_last]));
   });
 }
