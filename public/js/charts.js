@@ -19,7 +19,7 @@ const pie_data = {
     var url = '/monthlyView/getChartData';
     const month = document.querySelector("[name=month]").value;
     const year = document.querySelector("[name=year]").value;
-    url += "?month=" + year + "-" + (month.lienght == 2 ? month : "0" + month);
+    url += "?month=" + year + "-" + (month.length == 2 ? month : "0" + month);
     xhr.open("GET", url, true);
 
     // function execute after request is successful 
