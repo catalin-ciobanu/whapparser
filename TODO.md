@@ -1,3 +1,4 @@
+# Ordered backlog
 1. in the monthly view bar chart I want to show currenet month vs last month for each category
 2. in the monthly view I need to be able to see IN vs OUT
     - This means I need to be able to specify for each month what is the INCOME
