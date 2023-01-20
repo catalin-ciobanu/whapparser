@@ -12,6 +12,11 @@ let mysql = require('mysql2');
 ) COMMENT '';
 ALTER TABLE expenses ADD CONSTRAINT unique_expense UNIQUE (description, sum, expense_date, name);
 
+CREATE TABLE monthly_data(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
+    month VARCHAR(5) NOT NULL UNIQUE,
+    sum DECIMAL
+);
 
 create view monthly_categ_bucket as
 SELECT
@@ -103,7 +108,10 @@ connection.refreshMetadata = function (month, year, callback) {
             connection.metadata.months = Array.from(monthSet);
             connection.metadata.years = Array.from(yearSet);
             //tot pe metadata trimit si luna+an selectate
-            connection.metadata.current = { selectedMonth: month, selectedYear: year }
+            if (month) {
+                month = month.length == 1 ? "0" + month : month;
+                connection.metadata.current = { selectedMonth: month, selectedYear: year }
+            }
             callback();
         }
     );

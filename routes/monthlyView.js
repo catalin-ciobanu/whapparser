@@ -18,6 +18,9 @@ router.post('/', monthly_view_controller.expenses_list_by_month);
 //POST which handles uploading new expenses from a file
 router.post("/load_file", monthly_view_controller.load_monthly_expenses_post);
 
+//POST which handles insertion or update of income for a month
+router.post("/insert_or_update_income", monthly_view_controller.insert_or_update_income_in_month);
+
 // GET list of expenses from a given category
 router.get('/category/:id',monthly_view_controller.expenses_list_by_category);
 

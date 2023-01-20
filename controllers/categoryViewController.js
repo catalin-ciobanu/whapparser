@@ -9,7 +9,6 @@ exports.expenses_list_by_category_bucket = (req, res) => {
   categoryRepo.getAllExpensesByCategoryAndBucket(function (err, list_expenses, meta) {
     if (err) {
       res.render('error', { error: err });
-      //return next(err); 
     }
     //set the URL so we know where we are - this will allow further filtering for current month
     res.locals.path = req.originalUrl;

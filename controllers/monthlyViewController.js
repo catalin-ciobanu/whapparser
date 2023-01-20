@@ -6,8 +6,6 @@ const expenseRepo = require('../src/repo/expenseRepo');
 
 /** Show all expenses in a month - start with current/newest month
  * - ability to upload latest expenses (from file)
- * - ability to update expenses (category, bucket, sum)
- * - ability to delete a specific expense
  * - ability to select a specific month to display
  */
 
@@ -16,15 +14,19 @@ exports.expenses_list_by_month = (req, res) => {
   expenseRepo.getExpensesByMonth(req.body.month, req.body.year, function (err, list_expenses, meta) {
     if (err) {
       res.render('error', { error: err });
-      //return next(err); 
     }
     //set the URL so we know where we are - this will allow further filtering for current month
     res.locals.path = req.originalUrl;
-    //trimit titlul, lista de cheltuieli dar si metadata
-    res.render('monthlyView', {
-      title: 'Expenses for: ' + meta.current.selectedMonth +
-        ", " + meta.current.selectedYear
-      , expense_list: list_expenses, metadata: meta
+    expenseRepo.getIncomeForMonth(meta.current.selectedMonth, meta.current.selectedYear, function (err, income) {
+      if (err) {
+        res.render('error', { error: err });
+      }
+      //trimit titlul, lista de cheltuieli dar si metadata
+      res.render('monthlyView', {
+        title: 'Expenses for: ' + meta.current.selectedMonth +
+          ", " + meta.current.selectedYear
+        , expense_list: list_expenses, monthly_income: (income ? income.sum : 0), metadata: meta
+      });
     });
   });
 };
@@ -33,7 +35,6 @@ exports.expenses_list_by_category = (req, res) => {
   expenseRepo.getExpensesByCategory(req.params.id, function (err, list_expenses, meta) {
     if (err) {
       res.render('error', { error: err });
-      //return next(err); 
     }
     //set the URL so we know where we are - this will allow further filtering for current month
     res.locals.path = req.originalUrl;
@@ -80,16 +81,14 @@ exports.load_monthly_expenses_post = (req, res) => {
   });
 };
 
+exports.insert_or_update_income_in_month = (req, res) => {
+  expenseRepo.insertOrUpdateIncomeInAMonth(req.body.sum, function () {
+    res.redirect('/monthlyView');
+  });
+}
+
+
 exports.chart_data = (req, res) => {
-
-  /**
-   * 
-Masini-Transport:'2950.00'
-Misc:'349.00'
-Month:'2023-01'
-Oana:'235.00'
-   */
-
   expenseRepo.getTotalExpensesByCategories(req.query.month, req.query.lastMonth, function (err, list_expenses) {
     if (err) {
       res.render('error', { error: err });

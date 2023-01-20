@@ -2,7 +2,7 @@ extends layout
 
 block content
   //h1= path
-  //h2= JSON.stringify(metadata)
+  //h1= sum
   .table-wrapper
     .navigation-bar
       a(href="/monthlyView" class="selected-page") Monthly view
@@ -29,11 +29,15 @@ block content
             p No Years in DB
       input(class="wrapped-top-menu", type='submit', value='Filter By Month')
       div(class="wrapped-top-menu month-title")= title
-      div(class="wrapped-top-menu month-title")= 'Total: ' + expense_list.reduce(function(total, item) { return total + parseFloat(item.sum); }, 0) + ' RON'
+      div(class="wrapped-top-menu month-title")= 'Income: ' + monthly_income + ' RON'
+      div(class="wrapped-top-menu month-title")= 'Total expenses: ' + expense_list.reduce(function(total, item) { return total + parseFloat(item.sum); }, 0) + ' RON'
     .upload-form
       //formul care imi face upload la fisier  
       form(action="/monthlyView/load_file" method="POST" enctype="multipart/form-data")
         input(type="file" id="myfile" name="filename")
+        input(type="submit")
+      form(action="/monthlyView/insert_or_update_income" method="POST" enctype="multipart/form-data")
+        input(type="text" id="currentMonthIncome" name="sum" placeholder=monthly_income)
         input(type="submit")
     //tabelul cu cheltuieli
     table(class="fl-table")

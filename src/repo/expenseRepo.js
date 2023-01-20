@@ -132,7 +132,7 @@ const getExpensesByMonthAndBucket = function (month, year, bucket, cb) {
 /**
  * Functia asta ma ajuta cand vin pe view fara un request pentru luna+an. 
  * Atunci vreau sa fac display la cele mai proaspete cheltuieli (luna+an cele mai mari)
- * @param {callback} cb 
+ * @param {function} cb 
  */
 const getExpensesFromNewestMonth = function (cb) {
     conn.query("select MONTH(MAX(expense_date)) as month, YEAR(MAX(expense_date)) as year from expenses",
@@ -161,6 +161,30 @@ const getTotalExpensesByCategories = function (month, lastMonth, cb) {
     conn.query("SELECT * FROM monthly_categ_bucket where month = ? OR month = ? ORDER BY Month Desc", [month, lastMonth],
         function (err, rows) {
             cb(err, rows);
+        }
+    );
+}
+/**
+ * Insert the income for a specific month
+ * @param {String} month The month for which we insert the income
+ * @param {int} sum The income in that month
+ * @param {function} cb callback
+ */
+const insertOrUpdateIncomeInAMonth = function (sum, cb) {
+    let month = conn.metadata.current.selectedYear + "-" + conn.metadata.current.selectedMonth;
+    conn.query("INSERT INTO monthly_data (month, sum) VALUES (?,?) ON DUPLICATE key UPDATE sum = ?", [month, sum, sum],
+        function (err, rows) {
+            cb(err, rows);
+        }
+    );
+};
+
+const getIncomeForMonth = function (month, year, cb) {
+    let incomeMonth = year + "-" + (month.length == 2 ? month : "0" + month);
+    conn.query("SELECT sum FROM monthly_data WHERE month = ?", [incomeMonth],
+        function (err, sum) {
+            //we pass the expenses for the needed month & year + the metadata
+            cb(err, sum[0]);
         }
     );
 }
@@ -375,6 +399,8 @@ const updateExpense = function (id, expense, cb) {
 
 
 module.exports = {
+    getIncomeForMonth: getIncomeForMonth,
+    insertOrUpdateIncomeInAMonth, insertOrUpdateIncomeInAMonth,
     deleteExpenseById: deleteExpenseById,
     createExpense: saveExpense,
     updateExpense: updateExpense,

@@ -36,11 +36,6 @@ exports.expenses_list_by_year = (req, res) => {
 };
 
 exports.sum_by_categby_month = (req, res) => {
-  // expenseRepo.getSumByCategoryByMonth(req.body.category, req.body.month, req.body.year, function (err, sum) {
-  //   if (err) { return next(err); }
-  //   let finalSum = sum.reduce((partialSum, a) => partialSum + a, 0);
-  //   res.render('expenses', { title: 'Sum for ' + req.body.category, expense_list: sum });
-  // });
   expenseRepo.sumAggregate(req.body.category, req.body.month, req.body.year, function (err, sum) {
     if (err) {
       res.render('error', { error: err });
