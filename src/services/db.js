@@ -12,7 +12,7 @@ let mysql = require('mysql2');
 ) COMMENT '';
 ALTER TABLE expenses ADD CONSTRAINT unique_expense UNIQUE (description, sum, expense_date, name);
 
-CREATE TABLE monthly_data(
+CREATE TABLE monthly_data (
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
     month VARCHAR(5) NOT NULL UNIQUE,
     sum DECIMAL
@@ -52,7 +52,7 @@ SELECT
   SUM(CASE WHEN type = 'Charity' THEN sum ELSE 0 END) AS 'Charity',
   SUM(CASE WHEN bucket = 'Total Cheltuieli' THEN sum ELSE 0 END) AS 'Total Cheltuieli',
   SUM(CASE WHEN bucket = 'Total Ed Vac Char' THEN sum ELSE 0 END) AS 'Total Ed Vac Char',
-  SUM(CASE WHEN bucket = 'Total Investitii' THEN sum ELSE 0 END) AS 'Total Investitii',
+  SUM(CASE WHEN bucket = 'Total Investitii' THEN sum ELSE 0 END) AS 'Total Investitii'
 FROM
   expenses
 GROUP BY
