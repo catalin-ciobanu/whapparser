@@ -50,7 +50,7 @@ block content
         tr 
           td #{expense.description} 
           td #{expense.sum}  
-          td #{expense.expense_date} 
+          td #{(new Date(expense.expense_date).getDate()) + "-" + (new Date(expense.expense_date).getMonth() + 1) + "-" + new Date(expense.expense_date).getFullYear()} 
           td 
             a(href=path + "/category/" + expense.type) #{expense.type}
           td 
@@ -59,4 +59,4 @@ block content
           td(style="display:none;") #{expense._id}
       else
         p There are no expenses.
-  script(src="/js/charts.js")
+      script(src="/js/charts.js")

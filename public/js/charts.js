@@ -1,3 +1,4 @@
+
 const pie_data = {
     labels: ['Farmacie', 'Cheltuieli', 'Oana'],
     datasets: [{
@@ -32,7 +33,7 @@ const pie_data = {
             new Chart(
                 document.getElementById('pie_categories'),
                 {
-                    type: 'pie',
+                    type: 'doughnut',
                     options: {
                         plugins: {
                             legend: {
