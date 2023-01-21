@@ -42,10 +42,14 @@ const pie_data = {
                         }
                     },
                     data: {
-                        labels: resultSet[0].map(row => row.category),
+                        //filter out all Totals and then map for category (or sum lower when values are set)
+                        labels: resultSet[0].filter(function (row) {
+                            return row.category.startsWith("Total") ? null : row.category;
+                        }).map(row => row.category),
                         datasets: [{
-                            //label: 'Luna curenta',
-                            data: resultSet[0].map(row => row.sum),
+                            data: resultSet[0].filter(function (row) {
+                                return row.category.startsWith("Total") ? null : row.sum;
+                            }).map(row => row.sum),
                             hoverOffset: 4
                         }]
                     }
@@ -63,11 +67,15 @@ const pie_data = {
                         }
                     },
                     data: {
-                        labels: resultSet[0].map(row => row.category),
+                        labels: resultSet[0].filter(function (row) {
+                            return row.category.startsWith("Total") ? null : row.category;
+                        }).map(row => row.category),
                         datasets: [{
                             label: 'Luna curenta: ' + year + "-" +
                                 (month.length == 2 ? month : "0" + month),
-                            data: resultSet[0].map(row => row.sum),
+                            data: resultSet[0].filter(function (row) {
+                                return row.category.startsWith("Total") ? null : row.sum;
+                            }).map(row => row.sum),
                             hoverOffset: 4,
                             backgroundColor: [
                                 '#4FC3A1'
@@ -75,7 +83,9 @@ const pie_data = {
                         }, {
                             label: 'Luna trecuta: ' + lastYear + "-" +
                                 (lastMonth.toString().length == 2 ? lastMonth : "0" + lastMonth),
-                            data: resultSet[1].map(row => row.sum),
+                            data: resultSet[1].filter(function (row) {
+                                return row.category.startsWith("Total") ? null : row.sum;
+                            }).map(row => row.sum),
                             hoverOffset: 4,
                             backgroundColor: [
                                 '#324960'
