@@ -24,7 +24,8 @@ const getAllExpenses = function (cb) {
 };
 
 const getExpensesByMonth = function (month, year, cb) {
-    if (!month || !year) { //sunt pe cazul in care vin "default", probabil din alt view
+    if ((!month || !year) && (!conn.metadata.current)) {
+        //sunt pe cazul in care vin "default" - prima oara cand pornesc sesiunea
         getExpensesFromNewestMonth(function (err, rows) {
             month = rows[0].month;
             year = rows[0].year;
@@ -41,7 +42,11 @@ const getExpensesByMonth = function (month, year, cb) {
                 );
             });
         });
-    } else { //sunt pe cazul in care vin cu luna+an selectate de la comboboxes
+    } else {
+        if ((!month || !year) && (conn.metadata.current.selectedMonth && conn.metadata.current.selectedYear)) {
+            month = conn.metadata.current.selectedMonth;
+            year = conn.metadata.current.selectedYear;
+        }
         var first_day = new Date(year, month - 1, '1');
         var last_day = new Date(year, month, 0);
         //fac refresh in caz ca s-a adaugat o luna sau un an nou
@@ -53,6 +58,7 @@ const getExpensesByMonth = function (month, year, cb) {
                 }
             );
         });
+
     }
 };
 

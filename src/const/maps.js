@@ -37,7 +37,7 @@ const sala_words = ["prosop", "pedalas", "sala", "yoga", "worldclass",
 const unghii_words = ["epilat", "unghii", "manichiura", "pedichiura"];
 const masaj_words = ["masaj", "natasa"];
 const tuns_words = ["tuns", "geta", "neleapca", "moler"];
-const home_words = ["covoare", "motocoasa", "stalpi", "ciment", "scarificator", "leduri", "mini-vermorel",
+const home_words = ["jisk", "covoare", "motocoasa", "stalpi", "ciment", "scarificator", "leduri", "mini-vermorel",
     "monteaza", "irigație", "fitosanitare",
     "pavele", "dedeman", "leroy", "praktiker", "brico", "vidanjare", "vidanja"];
 const haine_words = ["papion", "bluza", "slapi", "geaca", "decathlon", "sutien", "trening", "ghete", "cravata", "costum", "rochii",
