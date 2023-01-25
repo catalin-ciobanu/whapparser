@@ -1,4 +1,5 @@
 
+let CATEGORIES = BUCKETS = [];
 const pie_data = {
     labels: ['Farmacie', 'Cheltuieli', 'Oana'],
     datasets: [{
@@ -12,6 +13,8 @@ const pie_data = {
     }]
 };
 
+
+//load data for our charts
 (function () {
     // Creating Our XMLHttpRequest object 
     var xhr = new XMLHttpRequest();
@@ -101,3 +104,100 @@ const pie_data = {
     // Sending our request 
     xhr.send();
 })();
+
+
+//load buckets & categories data
+(function () {
+    // Creating Our XMLHttpRequest object 
+    var xhr = new XMLHttpRequest();
+
+    // Making our connection  
+    var url = '/categoryView/getCategories';
+    xhr.open("GET", url, true);
+
+    // function execute after request is successful 
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const resultSet = JSON.parse(this.responseText);
+            CATEGORIES = resultSet.filter(item => item.type == "category").map(item => item.value);
+            BUCKETS = resultSet.filter(item => item.type == "bucket").map(item => item.value);
+        }
+    }
+    // Sending our request 
+    xhr.send();
+})();
+
+//edit a category
+let createClickHandler = function (rowId) {
+    //a(id="expenseType" + expense.id, href=path + "/category/" + expense.type) #{expense.type}
+    let expenseTypeElem = document.getElementById("expenseType" + rowId);
+    let elementParent = expenseTypeElem.parentElement;
+
+    let inlineSelect = document.createElement("SELECT");
+    inlineSelect.id = "expenseType" + rowId;
+    inlineSelect.title = "Select a value";
+    inlineSelect.classList.add("inline-select");
+
+    hideElement(elementParent.children[0]);
+    hideElement(elementParent.children[1]);
+
+    for (var i = 0; i < CATEGORIES.length; i++) {
+        var option = document.createElement("option");
+        option.value = CATEGORIES[i];
+        option.text = CATEGORIES[i];
+        inlineSelect.appendChild(option);
+    }
+    elementParent.append(inlineSelect);
+
+    let saveIcon = document.createElement("IMG");
+    saveIcon.src = "/icons/save.png";
+    saveIcon.classList.add("inline-img")
+    saveIcon.classList.add("inline-edit");
+    saveIcon.onclick = function () {
+        alert("UPDATE EXPENSES SET type = " + inlineSelect.value + " WHERE id = " + rowId);
+    }
+
+    elementParent.appendChild(saveIcon);
+
+    let cancelIcon = document.createElement("IMG");
+    cancelIcon.src = "/icons/cancel.png";
+    cancelIcon.classList.add("inline-img")
+    cancelIcon.classList.add("inline-edit");
+    cancelIcon.onclick = function () {
+        elementParent.removeChild(cancelIcon);
+        elementParent.removeChild(inlineSelect);
+        elementParent.removeChild(saveIcon);
+        showElement(elementParent.children[0]);
+        showElement(elementParent.children[1]);
+    }
+
+    elementParent.appendChild(cancelIcon);
+}
+
+let hideElement = function (element) {
+    element.style = "display: none";
+}
+
+let showElement = function (element) {
+    element.style = "";
+}
+
+let updateElementAjax = function (column, newValue, id) {
+    // Creating Our XMLHttpRequest object 
+    var xhr = new XMLHttpRequest();
+
+    // Making our connection  
+    var url = '/expensesView/update';
+    xhr.open("PUT", url, true);
+
+    // function execute after request is successful 
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const resultSet = JSON.parse(this.responseText);
+            CATEGORIES = resultSet.filter(item => item.type == "category").map(item => item.value);
+            BUCKETS = resultSet.filter(item => item.type == "bucket").map(item => item.value);
+        }
+    }
+    // Sending our request 
+    xhr.send();
+}
