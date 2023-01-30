@@ -87,7 +87,6 @@ exports.insert_or_update_income_in_month = (req, res) => {
   });
 }
 
-
 exports.chart_data = (req, res) => {
   expenseRepo.getTotalExpensesByCategories(req.query.month, req.query.lastMonth, function (err, list_expenses) {
     if (err) {
@@ -108,6 +107,18 @@ exports.chart_data = (req, res) => {
         }
       }
       res.send(JSON.stringify([result_current, result_last]));
+    }
+
+  });
+}
+
+
+exports.update_category_or_bucket = (req, res) => {
+  expenseRepo.updateExpenseCategory(req.body.field, req.body.id, req.body.value, function (err, rows) {
+    if (err) {
+      res.render('error', { error: err });
+    } else {
+      res.redirect('/monthlyView');
     }
 
   });

@@ -2,6 +2,7 @@ const async = require('async');
 const { body, validationResult } = require("express-validator");
 const csvtojson = require("csvtojson");
 const categoryRepo = require('../src/repo/categoryRepo');
+const expenseRepo = require('../src/repo/expenseRepo');
 
 
 // Display list of all Expenses in that month.
@@ -30,4 +31,5 @@ exports.category_bucket_list = (req, res) => {
     //trimit titlul, lista de cheltuieli dar si metadata
     res.json(category_list);
   });
+
 };

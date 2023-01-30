@@ -43,7 +43,7 @@ const getExpensesByMonth = function (month, year, cb) {
             });
         });
     } else {
-        if ((!month || !year) && (conn.metadata.current.selectedMonth && conn.metadata.current.selectedYear)) {
+        if ((!month || !year) && (conn.metadata.current)) {
             month = conn.metadata.current.selectedMonth;
             year = conn.metadata.current.selectedYear;
         }
@@ -388,17 +388,11 @@ const saveExpense = function (expense, cb) {
         });
 }
 
-const updateExpense = function (id, expense, cb) {
-    conn.query("UPDATE expenses SET description = ?, name = ?, type = ?, bucket = ?, sum = ?, expense_date = ? WHERE id = ?",
-        [expense.description, expense.name, expense.type, expense.bucket, expense.sum, expense.expense_date, id],
+const updateExpenseCategory = function (field, id, newCategory, cb) {
+    conn.query("UPDATE expenses SET " + field + " = ? WHERE id = ?",
+        [newCategory, id],
         function (err, rows) {
-            if (err) {
-                console.log(err.message);
-                cb(err);
-            } else {
-                console.log(rows);
-                cb();
-            }
+            cb(err, rows);
         });
 }
 
@@ -409,7 +403,7 @@ module.exports = {
     insertOrUpdateIncomeInAMonth, insertOrUpdateIncomeInAMonth,
     deleteExpenseById: deleteExpenseById,
     createExpense: saveExpense,
-    updateExpense: updateExpense,
+    updateExpenseCategory: updateExpenseCategory,
     sumAggregate: sumAggregate,
     importFromFile: importFromFile,
     getSumByCategoryByMonth: getSumByCategoryByMonth,

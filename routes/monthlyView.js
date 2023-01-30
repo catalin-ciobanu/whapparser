@@ -9,8 +9,11 @@ var monthly_view_controller = require('../controllers/monthlyViewController');
 // GET list all expenses in this/last month
 router.get('/', monthly_view_controller.expenses_list_by_month);
 
+//AJAX load data for the charts
 router.get('/getChartData', monthly_view_controller.chart_data);
 
+//AJAX to update category or bucket
+router.post('/updateCategoryBucket', monthly_view_controller.update_category_or_bucket);
 
 // POST list all expenses in this/last month
 router.post('/', monthly_view_controller.expenses_list_by_month);

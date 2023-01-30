@@ -13,9 +13,11 @@ const pie_data = {
     }]
 };
 
+var pieChart;
+var barChart;
 
 //load data for our charts
-(function () {
+let createCharts = function () {
     // Creating Our XMLHttpRequest object 
     var xhr = new XMLHttpRequest();
 
@@ -33,7 +35,10 @@ const pie_data = {
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const resultSet = JSON.parse(this.responseText);
-            new Chart(
+            if (pieChart) { pieChart.destroy(); }
+            if (barChart) { barChart.destroy(); }
+
+            pieChart = new Chart(
                 document.getElementById('pie_categories'),
                 {
                     type: 'doughnut',
@@ -58,7 +63,7 @@ const pie_data = {
                     }
                 }
             );
-            new Chart(
+            barChart = new Chart(
                 document.getElementById('bar_weekly'),
                 {
                     type: 'bar',
@@ -103,7 +108,7 @@ const pie_data = {
     }
     // Sending our request 
     xhr.send();
-})();
+};
 
 
 //load buckets & categories data
@@ -126,6 +131,10 @@ const pie_data = {
     // Sending our request 
     xhr.send();
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+    createCharts();
+});
 
 //edit a category
 let createClickHandler = function (rowId) {
@@ -154,7 +163,16 @@ let createClickHandler = function (rowId) {
     saveIcon.classList.add("inline-img")
     saveIcon.classList.add("inline-edit");
     saveIcon.onclick = function () {
-        alert("UPDATE EXPENSES SET type = " + inlineSelect.value + " WHERE id = " + rowId);
+        updateElementAjax('type', inlineSelect.value, rowId, function (result) {
+            //  alert(JSON.stringify(result));
+            elementParent.removeChild(cancelIcon);
+            elementParent.removeChild(inlineSelect);
+            elementParent.removeChild(saveIcon);
+            elementParent.children[0].innerText = inlineSelect.value;
+            showElement(elementParent.children[0]);
+            showElement(elementParent.children[1]);
+            createCharts();
+        });
     }
 
     elementParent.appendChild(saveIcon);
@@ -169,6 +187,7 @@ let createClickHandler = function (rowId) {
         elementParent.removeChild(saveIcon);
         showElement(elementParent.children[0]);
         showElement(elementParent.children[1]);
+
     }
 
     elementParent.appendChild(cancelIcon);
@@ -182,22 +201,28 @@ let showElement = function (element) {
     element.style = "";
 }
 
-let updateElementAjax = function (column, newValue, id) {
+let updateElementAjax = function (column, newValue, id, callback) {
     // Creating Our XMLHttpRequest object 
     var xhr = new XMLHttpRequest();
 
-    // Making our connection  
-    var url = '/expensesView/update';
-    xhr.open("PUT", url, true);
+    let postObj = {
+        field: column,
+        value: newValue,
+        id: id
+    };
 
+    // Making our connection  
+    var url = '/monthlyView/updateCategoryBucket';
+    xhr.open('POST', url, true)
+    xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
     // function execute after request is successful 
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            const resultSet = JSON.parse(this.responseText);
-            CATEGORIES = resultSet.filter(item => item.type == "category").map(item => item.value);
-            BUCKETS = resultSet.filter(item => item.type == "bucket").map(item => item.value);
+            callback(this.responseText);
+        } else if (this.status != 200) {
+            alert('Update did not work as expected');
+            console.error(this.responseText);
         }
     }
-    // Sending our request 
-    xhr.send();
+    xhr.send(JSON.stringify(postObj));
 }
