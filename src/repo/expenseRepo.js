@@ -366,13 +366,10 @@ const deleteAllExpenses = function (cb) {
         });
 };
 
-const deleteExpenseById = function (id) {
-    const result = conn.query("DELETE FROM expenses WHERE id = ?", [id]);
-    let message = 'Error in deleting expense';
-    if (result.affectedRows) {
-        message = 'Expense deleted successfully';
-    }
-    return { message };
+const deleteExpenseById = function (id, cb) {
+    conn.query("DELETE FROM expenses WHERE id = ?", [id], function (err, result) {
+        cb(err, result);
+    });
 };
 
 const saveExpense = function (expense, cb) {

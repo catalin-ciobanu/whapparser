@@ -15,6 +15,9 @@ router.get('/getChartData', monthly_view_controller.chart_data);
 //AJAX to update category or bucket
 router.post('/updateCategoryBucket', monthly_view_controller.update_category_or_bucket);
 
+//AJAX to delete an expense
+router.post('/deleteExpense', monthly_view_controller.delete_expense);
+
 // POST list all expenses in this/last month
 router.post('/', monthly_view_controller.expenses_list_by_month);
 

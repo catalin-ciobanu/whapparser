@@ -57,13 +57,13 @@ block content
           td #{(new Date(expense.expense_date).getDate()) + "-" + (new Date(expense.expense_date).getMonth() + 1) + "-" + new Date(expense.expense_date).getFullYear()} 
           td 
             a(id="expenseType" + expense.id, href=path + "/category/" + expense.type) #{expense.type}
-            img.inline-img.inline-edit(src="/icons/edit.png" alt="Edit expense category", onclick='createClickHandler('+expense.id+')')
+            img.inline-img.inline-edit(src="/icons/edit.png" alt="Edit expense category", onclick='createEditHandler('+expense.id+')')
           td 
             a(id="expenseBucket" + expense.id, href=path + "/bucket/" + expense.bucket) #{expense.bucket}
-            img.inline-img.inline-edit(src="/icons/edit.png" alt="Edit expense bucket")
+            <!--img.inline-img.inline-edit(src="/icons/edit.png" alt="Edit expense bucket") -->
           td #{expense.name}
           td
-            img.inline-img.inline-del(id=expense.id, src="/icons/delete.png" alt="Delete expense")
+            img.inline-img.inline-del(id="delete" + expense.id, src="/icons/delete.png" alt="Delete expense" onclick='createDeleteHandler('+expense.id+')')
       else
         p There are no expenses.
       script(src="/js/charts.js")

@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //edit a category
-let createClickHandler = function (rowId) {
+let createEditHandler = function (rowId) {
     //a(id="expenseType" + expense.id, href=path + "/category/" + expense.type) #{expense.type}
     let expenseTypeElem = document.getElementById("expenseType" + rowId);
     let elementParent = expenseTypeElem.parentElement;
@@ -189,8 +189,22 @@ let createClickHandler = function (rowId) {
         showElement(elementParent.children[1]);
 
     }
-
     elementParent.appendChild(cancelIcon);
+}
+
+//remove an expense
+let createDeleteHandler = function (id) {
+    deleteElementAjax(id, function (err, result) {
+        if (err) {
+            //something went wrong, do not remote the element
+            console.error(JSON.stringify(result));
+        } else {
+            //deletion went ok, let's remove the UI element - the ROW which is 2nd level parent of the img.
+            document.getElementById("delete" + id).parentElement.parentElement.remove();
+            createCharts();
+        }
+
+    });
 }
 
 let hideElement = function (element) {
@@ -222,6 +236,29 @@ let updateElementAjax = function (column, newValue, id, callback) {
         } else if (this.status != 200) {
             alert('Update did not work as expected');
             console.error(this.responseText);
+        }
+    }
+    xhr.send(JSON.stringify(postObj));
+}
+
+let deleteElementAjax = function (rowId, callback) {
+    // Creating Our XMLHttpRequest object 
+    var xhr = new XMLHttpRequest();
+
+    let postObj = {
+        id: rowId
+    };
+
+    // Making our connection  
+    var url = '/monthlyView/deleteExpense';
+    xhr.open('POST', url, true)
+    xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
+    // function execute after request is successful 
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            callback(null, this.responseText);
+        } else if (this.status != 200) {
+            callback("ERROR", this.responseText);
         }
     }
     xhr.send(JSON.stringify(postObj));

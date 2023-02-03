@@ -123,3 +123,13 @@ exports.update_category_or_bucket = (req, res) => {
 
   });
 }
+
+exports.delete_expense = (req, res) => {
+  expenseRepo.deleteExpenseById(req.body.id, function (err, rows) {
+    if (err) {
+      res.render('error', { error: err });
+    } else {
+      res.redirect('/monthlyView');
+    }
+  });
+}
