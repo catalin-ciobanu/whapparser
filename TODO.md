@@ -7,6 +7,8 @@
 2. a dashboard to check Current-Year + Year-over-Year statistics, probably charts  
 3. deploy and run from aws  
     - this means I need to implement some kind of security features  
+    - a build pipeline  
+    - minification    
 4. in the monthly view I need a way to add new expenses
 5. refactor for code reusability, design patterns/code cleanness - make code easily testable  
 6. implement tests  
