@@ -4,6 +4,11 @@ block content
     .navigation-bar
       a(href="/monthlyView") Monthly view
       a(href="/categoryView" class="selected-page") Category view
+    .chart-container
+      .top-chart
+        canvas(class="top_chart-line1", id="line_categories" height="300px", width="600px")
+      .top-chart
+        canvas(class="top_chart-line2", id="line_in_out", height="300px", width="600px")
     //tabelul cu cheltuieli
     table(class="fl-table")
       thead

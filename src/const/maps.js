@@ -9,7 +9,7 @@ const cumparaturi_words = ["sampon", "eclere", "reprezentantive", "suc", "peste"
     "kosarom", "exira", "carrefour", "carfur", "lidl", "profi", "selgros",
     "mega", "2pasi", "carmangerie", "cumparaturi", "cump", "auchan", "aeroport", "moldovencei", "cuptorul", "cuptor",
     "trans", "gigel", "bringo", "piata", "legume", "shopping", "mcs", "cupio", "meat", "narghilea", "bere", "rucsac", "pepene", "biscuiti"];
-const eatingOut_words = ["racilor", "hotdog", "praji", "kebab", "ospatul", "placinta", "rita", "blanca", "covrig",
+const eatingOut_words = ["patiserie","racilor", "hotdog", "praji", "kebab", "ospatul", "placinta", "rita", "blanca", "covrig",
     "texas", "ospățul", "fryday", "panoramic", "matrioshka", "veneto", "saladbox",
     "prăjiturele", "corniche", "matriosca", "fenice", "mamma", "înghețată", "înghețata", "hummus", "bacsis",
     "cartofisserie", "mcdonald", "covrigi", "branzoice", "shaworma", "salad", "cartofiserie", "kfc", "fornetti",
@@ -26,7 +26,7 @@ const masini_words = ["parbriz", "parcare", "lukoil", "rovignete", "vulcanizare"
     "moto", "bolt", "uber", "itp", "asigurare", "rompetrol", "rovigneta", "toyota", "cauciucuri", "roti", "jante",
     "benzina", "ford", "plin", "omv", "motorina", "benzinarie", "mol"];
 const oana_words = ["oana"];
-const sanatate_words = ["rmn", "kineto", "siminiceanu", "ortodont", "antiviral", "imunitate", "sunwave", "sarcina",
+const sanatate_words = ["homeopat","rmn", "kineto", "siminiceanu", "ortodont", "antiviral", "imunitate", "sunwave", "sarcina",
     "morfologie", "catina", "consultatie", "reteta", "unguent", "covid", "soluție", "medlife", "arcadia", "cervical",
     "teste", "echo", "implant", "gineco", "ecografie", "bioclinica", "synevo", "ortho", "plafaria", "pastile", "pcr", "stomato", "strepsils",
     "cardiologie", "radiografie", "plafar", "dentist", "bebetei", "farmacie", "farmacia", "catena", "dona",
