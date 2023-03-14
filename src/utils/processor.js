@@ -6,7 +6,7 @@ var cleanDate = function (date) {
     if (date) {
         let dateString = date.replace('[', '').replace(',', '');
         let dateArray = dateString.split(".");
-        return { day: dateArray[0], month: (dateArray[1]-1), year: dateArray[2] };
+        return { day: dateArray[0], month: (dateArray[1] - 1), year: dateArray[2] };
     }
 }
 
@@ -32,17 +32,16 @@ var processFileContent = function (input) {
                     text += elemArray[v] + " ";
                     text = text.replace(' lei ', ' ').replace(' RON ', ' ').replace(' ron ', ' ');
                 }
-                else
-                    continue;
+                else { continue; }
             }
             var myarray = text.split(/(.*,)(\s)(.*:)(\s)(\S*)(.*)/gm);
-            if (myarray.length < 6) {
+            if (myarray.length < 6 || myarray.indexOf("deleted") > -1 ) {
                 return result;
             }
             var incomingDate = cleanDate(myarray[1]);
             currentLine.expense_date = new Date(incomingDate.year, incomingDate.month, incomingDate.day);
             currentLine.name = cleanName(myarray[3]);
-            currentLine.sum = myarray[5].replace(",",".");
+            currentLine.sum = myarray[5].replace(",", ".");
             currentLine.description = myarray[6];
             var categ_and_bucket = get_Category_Bucket(myarray[6]);
             currentLine.bucket = categ_and_bucket.bucket;
