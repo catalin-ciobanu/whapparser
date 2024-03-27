@@ -1,5 +1,4 @@
-// var testMesg = "[10.04.2021, 14:22:57] Elena Ciobanu: 20 bacsic unghii[12.04.2021, 13:19:52] Elena Ciobanu: 150 lidl[12.04.2021, 13:20:09] Elena Ciobanu: 120 emag - ulei si carte[15.04.2021, 09:12:46] Elena Ciobanu: 85 lidl[15.04.2021, 09:12:54] Elena Ciobanu: 120 farmacie[15.04.2021, 09:13:17] Elena Ciobanu: 100 oana[15.04.2021, 11:34:36] Elena Ciobanu: 450 charity[15.04.2021, 18:03:59] Elena Ciobanu: ‎This message was deleted.[15.04.2021, 18:05:47] Elena Ciobanu: 165 carti[18.04.2021, 18:26:49] Elena Ciobanu: 70 hm[18.04.2021, 18:26:54] Elena Ciobanu: 270 omv[18.04.2021, 18:27:08] Elena Ciobanu: 105 findus[18.04.2021, 18:28:04] Elena Ciobanu: 30 palas[18.04.2021, 18:31:32] Catalin: 60 glovo duminica[18.04.2021, 18:31:44] Catalin: 600 gaz pământ[18.04.2021, 18:50:02] Elena Ciobanu: 400 ionut ziua radu[20.04.2021, 13:39:17] Elena Ciobanu: 27 lei mega[20.04.2021, 13:39:20] Elena Ciobanu: 120 lidl[20.04.2021, 13:39:30] Elena Ciobanu: 40 palas"
-// var arr = testMesg.split('[');
+
 const Maps = require('../const/maps');
 
 var cleanDate = function (date) {
