@@ -1,7 +1,7 @@
 
 let CATEGORIES = BUCKETS = [];
 const pie_data = {
-    labels: ['Farmacie', 'Cheltuieli', 'Oana'],
+    labels: ['Toot', 'Cheltuieli', 'Dana'],
     datasets: [{
         data: [2004, 20014, 100],
         backgroundColor: [
